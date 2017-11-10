@@ -6,7 +6,11 @@
 font-family: 'Lato', sans-serif;*/
 
 body {
-   background: #2DFFFF;
+   background-image: url("../img/background.png");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-color: #085368;
 }
 
 .logo {
