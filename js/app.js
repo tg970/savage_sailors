@@ -40,11 +40,12 @@ const userShot = (event) => {
 }
 
 const boatPlacement = (event) => {
-   if (boats > 0) {
+   if (boats >= 1) {
       let row = $(event.currentTarget).attr('class').split(' ')[1];
       let col = $(event.currentTarget).attr('id');
       userBoats.unshift(new Boat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
+      posBuild(event);
       boats--
       console.log(userBoats, availBoats, boats);
    }
