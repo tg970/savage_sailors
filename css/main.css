@@ -1,11 +1,13 @@
 * {
-   border: .25px solid black
+   /*border: .25px solid black*/
 }
 
 /*font-family: 'Finger Paint', cursive;
 font-family: 'Lato', sans-serif;*/
 
 body {
+   max-width: 1250px;
+   align-items: center;
    background-image: url("../img/background.png");
    background-size: cover;
    background-repeat: no-repeat;
@@ -13,11 +15,22 @@ body {
    background-color: #085368;
 }
 
+nav {
+   display: flex;
+   flex-direction: row;
+}
+
 .logo {
    height: 15%;
    font-family: 'Finger Paint', cursive;
    font-size: 50px;
    font-weight: bold;
+   align-self: flex-start;
+   width: 80%;
+}
+
+img {
+   margin-left: auto;
 }
 
 .container {
@@ -27,7 +40,6 @@ body {
 }
 
 .board {
-   border: .25px solid red;
    /*height: 400px;*/
    display: flex;
    display: flex;
@@ -37,15 +49,13 @@ body {
 }
 
 .hero {
-   border: .25px solid blue;
    height: 400px;
-   width: 450px;
+   width: 475px;
 }
 
 .enemy {
-   border: .25px solid yellow;
    height: 400px;
-   width: 450px;
+   width: 475px;
 }
 
 .info {
