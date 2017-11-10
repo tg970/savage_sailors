@@ -41,16 +41,16 @@ const userShot = (event) => {
 
 const boatPlacement = (event) => {
    if (boats >= 1) {
-      let row = $(event.currentTarget).attr('class').split(' ')[1];
-      let col = $(event.currentTarget).attr('id');
+      let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
+      let col = Number($(event.currentTarget).attr('id'));
       userBoats.unshift(new Boat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
-      posBuild(event);
+      userBoats[0].posBuild(row, col);
       boats--
       console.log(userBoats, availBoats, boats);
    }
    if (boats == 1) {
-
+      //gamePlay
    }
 }
 
@@ -63,10 +63,10 @@ class Boat {
       this.position = {},
       this.hit = []
    }
-   posBuild(event) {
+   posBuild(row, col) {
       for (let i = 0; i < this.length; i++) {
-         //this.position[i] = event click handler + i
-         //this.hit.push(false)
+         this.position[i] = [row, col + i]
+         this.hit.push(false)
       }
    }
 }
