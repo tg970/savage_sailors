@@ -5,6 +5,7 @@
 /*font-family: 'Finger Paint', cursive;
 font-family: 'Lato', sans-serif;*/
 
+/* === BODY ELEMENTS === */
 body {
    max-width: 1250px;
    align-items: center;
@@ -15,6 +16,7 @@ body {
    background-color: #085368;
 }
 
+/* === NAV SECTION ELEMENTS === */
 nav {
    display: flex;
    flex-direction: row;
@@ -33,6 +35,7 @@ img {
    margin-left: auto;
 }
 
+/* === BOARD SECTION === */
 .container {
    display: flex;
    justify-content: space-around;
@@ -45,19 +48,37 @@ img {
    display: flex;
    flex-direction: row;
    align-items: center;
-   justify-content: center;
+   justify-content: space-around;
+   width: 850px;
 }
 
-.hero {
+.hero, .enemy{
    height: 400px;
-   width: 475px;
+   width: 400px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
 }
 
-.enemy {
-   height: 400px;
-   width: 475px;
+.row {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-around;
 }
 
+.heroSq, .enemySq {
+   width: 95px;
+   height: 95px;
+   border: .25px solid black;
+}
+
+.enemySq {
+   background-color: #81F7FF;
+   opacity: .75;
+}
+
+/* === BOTTOM INFO SECTION === */
 .info {
    height: 150px;
 }
