@@ -3,9 +3,9 @@
 // === GLOBAL VARIABLES ===
 let userBoats = [];
 let enemyBoats = [];
-let boats = 3;
 let size = 4;
-let availBoats = [['Tender', 1],['Fishing',2],['Cat',3]]
+let availBoats = [['Tender', 1], ['Fishing',2], ['Cat',3]];
+let availEnemy = [['Skiff', 1], ['Ol Busted Pontoon', 2], ['Trawler', 3]];
 
 // === BOARD CONSTRUCTION ===
 const buildBoards = (size) => {
@@ -31,7 +31,38 @@ const buildBoards = (size) => {
       };
    $('.enemy').append($container)
    }
+   return placeEnemyBoats();
 }
+
+const placeEnemyBoats = () => {
+   let possPost = buildPossiblePositions();
+   console.log(possPost);
+   let countEnemy = availEnemy.length
+   for (let i = 0; i < countEnemy; i++) {
+      let row = Math.floor(Math.random()*size)
+      let col = Math.floor(Math.random()*size)
+      enemyBoats.unshift(new Boat (availEnemy[0][0],availEnemy[0][1]));
+      availEnemy.shift();
+      enemyBoats[0].posBuild(row, col);
+      //removeEnemyPos(row, col);
+   }
+   console.log(enemyBoats);
+}
+
+const buildPossiblePositions = () => {
+   let tempArr = []
+   for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+         tempArr.push([i, j])
+      }
+   }
+   return tempArr
+}
+
+const removeEnemyPos = () => {
+
+}
+
 
 // === CLICK HANDERLERS ===
 
@@ -40,17 +71,17 @@ const userShot = (event) => {
 }
 
 const boatPlacement = (event) => {
-   if (boats >= 1) {
+   if (availBoats.length >= 1) {
       let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
       let col = Number($(event.currentTarget).attr('id'));
       userBoats.unshift(new Boat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
       userBoats[0].posBuild(row, col);
-      boats--
-      console.log(userBoats, availBoats, boats);
+      console.log(userBoats, availBoats);
    }
-   if (boats == 1) {
-      //gamePlay
+   if (availBoats.length == 0) {
+      console.log('game play');
+      //return gamePlay
    }
 }
 
