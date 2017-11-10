@@ -1,3 +1,49 @@
+* {
+   border: .25px solid black
+}
+
+/*font-family: 'Finger Paint', cursive;
+font-family: 'Lato', sans-serif;*/
+
 body {
-   background: blue;
+   background: #2DFFFF;
+}
+
+.logo {
+   height: 15%;
+   font-family: 'Finger Paint', cursive;
+   font-size: 50px;
+   font-weight: bold;
+}
+
+.container {
+   display: flex;
+   justify-content: space-around;
+   height: 500px;
+}
+
+.board {
+   border: .25px solid red;
+   /*height: 400px;*/
+   display: flex;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+
+.hero {
+   border: .25px solid blue;
+   height: 400px;
+   width: 450px;
+}
+
+.enemy {
+   border: .25px solid yellow;
+   height: 400px;
+   width: 450px;
+}
+
+.info {
+   height: 150px;
 }
