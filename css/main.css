@@ -104,6 +104,10 @@ nav {
    background-color: red;
 }
 
+.miss {
+   background-color: yellow;
+}
+
 /* === BOTTOM INFO SECTION === */
 .info {
    height: 150px;

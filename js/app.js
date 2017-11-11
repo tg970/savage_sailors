@@ -70,11 +70,16 @@ const killBoatPlaceClicks = () => {
 const userShot = (event) => {
    let row = getRow(event);
    let col = getCol(event);
-   if (checkHit(row, col, enemyBoats)) {
+   let shot = checkHit(row, col, enemyBoats)
+   //console.log(shot);
+   if (shot.t) {
+      $('.message').text(`That's a HIT!!!!`)
+      shot.b.damage(shot.opp)
+      console.log(enemyBoats);
       renderHit(event)
-      console.log(`That's a HIT!!!!`)
    } else {
-      console.log(`Misssssed....`);
+      $('.message').text(`Misssssed....`);
+      renderMiss(event)
    }
 }
 
@@ -88,6 +93,10 @@ const getCol = (event) => {
 const renderHit = (event) => {
    $(event.currentTarget).off();
    $(event.currentTarget).addClass(`hit`);
+}
+const renderMiss = (event) => {
+   $(event.currentTarget).off();
+   $(event.currentTarget).addClass(`miss`)
 }
 
 // === LOGIC LAYER ===
@@ -105,8 +114,22 @@ class Boat {
          this.hit.push(false)
       }
    }
-   damage() {
-      console.log('damage');
+   damage(opp) {
+      //console.log(this);
+      this.hit.shift();
+      this.hit.push(true);
+      this.checkForSunk(opp);
+   }
+   checkForSunk(opp) {
+      for (let i = 0; i < this.length; i++) {
+         if (this.hit[i]) {
+            continue
+         } else {
+            return
+         }
+      }
+      $('.message').text(`${this.name} Sunk!`);
+      opp.splice(opp.indexOf(this),1);
    }
 }
 
@@ -205,8 +228,8 @@ const checkHit = (row, col, otherBoats) => {
    for (let boat of otherBoats) {
       for (let post of boat.position) {
          if (post[0] == row && post[1] == col) {
-            boat.damage();
-            return true
+            //boat.damage();
+            return {'t':true, b:boat, opp:otherBoats}
          }
       }
    }
