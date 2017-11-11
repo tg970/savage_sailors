@@ -35,15 +35,11 @@ const buildBoards = (size) => {
 
 // === CLICK HANDERLERS ===
 
-const userShot = (event) => {
-   console.log('click enemy square');
-}
-
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
    let newBoatName = availBoats[0][0]
-   let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
-   let col = Number($(event.currentTarget).attr('id'));
+   let row = getRow(event);
+   let col = getCol(event);
    if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
@@ -69,6 +65,21 @@ const killBoatPlaceClicks = () => {
    for (let i = 0; i < $heroSqEmpty.length; i++) {
       $($heroSqEmpty).eq(i).off();
    }
+}
+
+const userShot = (event) => {
+   let row = getRow(event);
+   let col = getCol(event);
+   if (checkHit(row, col, enemyBoats)) {
+      console.log(`That's a HIT!!!!`)
+}
+
+// === Henderler Dependencies ===
+const getRow = (event) => {
+   return Number($(event.currentTarget).attr('class').split(' ')[1]);
+}
+const getCol = (event) => {
+   return Number($(event.currentTarget).attr('id'));
 }
 
 // === LOGIC LAYER ===
