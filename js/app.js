@@ -125,28 +125,12 @@ const placeEnemyBoats = () => {
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
       //console.log('new go', row, col);
-      let $enemyRow = $(`.enemySq`).filter(`.${row}`)
-      let testCnt = availEnemy[0][1]
-      //console.log($enemyRow);
-      for (let i = 0; i < $enemyRow.length; i++) {
-         let tmpCol = $($enemyRow[i]).attr('id')
-         let tmpRow = $($enemyRow[i]).attr('class').split(' ')[1]
-         //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
-         if ( testCnt > 0 && tmpCol >= col) {
-            if ($($enemyRow[i]).hasClass('bb')) {
-               console.log('break');
-               break
-            } else {
-               testCnt--
-            }
-            if (testCnt == 0) {
-               enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
-               //console.log(enemyBoats[0].name);
-               availEnemy.shift();
-               enemyBoats[0].posBuild(row, col);
-               enemyBoats[0].colorIn(row, col)
-            }
-         }
+      if (checkConflicts(row, col, `.enemySq`)) {
+         enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
+         //console.log(enemyBoats[0].name);
+         availEnemy.shift();
+         enemyBoats[0].posBuild(row, col);
+         enemyBoats[0].colorIn(row, col)
       }
       if (!availEnemy.length) {
          let $enemySq = $(`.enemySq`)
@@ -154,6 +138,29 @@ const placeEnemyBoats = () => {
          for (let i = 0; i < $enemySq.length; i++) {
             //console.log($($enemySq[i]));
             $($enemySq[i]).on('click', userShot)
+         }
+      }
+   }
+   console.log(enemyBoats);
+}
+
+const checkConflicts = (row, col, board) => {
+   let $row = $(board).filter(`.${row}`)
+   let testCnt = availEnemy[0][1]
+   //console.log($enemyRow);
+   for (let i = 0; i < $row.length; i++) {
+      let tmpCol = $($row[i]).attr('id')
+      let tmpRow = $($row[i]).attr('class').split(' ')[1]
+      //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
+      if ( testCnt > 0 && tmpCol >= col) {
+         if ($($row[i]).hasClass('bb')) {
+            console.log('break');
+            return false
+         } else {
+            testCnt--
+         }
+         if (testCnt == 0) {
+            return true
          }
       }
    }
@@ -171,6 +178,7 @@ const gamePlay = () => {
 }
 
 const startGame = () => {
+   $('.message').text("Place your Boats!")
    buildBoards(size);
    placeEnemyBoats();
    //possPostHero = buildPossiblePositions();

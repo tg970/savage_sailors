@@ -1,5 +1,5 @@
 * {
-   /*border: .25px solid black*/
+   /*border: .25px solid green*/
 }
 
 /*font-family: 'Finger Paint', cursive;
@@ -39,7 +39,12 @@ img {
 .container {
    display: flex;
    justify-content: space-around;
-   height: 500px;
+   /*height: 450px;*/
+}
+
+.message {
+   height: 75px;
+   /*background-color: yellow;*/
 }
 
 .board {
@@ -49,7 +54,7 @@ img {
    flex-direction: row;
    align-items: center;
    justify-content: space-around;
-   width: 850px;
+   /*width: 850px;*/
 }
 
 .hero, .enemy{
