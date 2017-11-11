@@ -78,6 +78,10 @@ img {
    opacity: .75;
 }
 
+.bb {
+   background-color: blue;
+}
+
 /* === BOTTOM INFO SECTION === */
 .info {
    height: 150px;
