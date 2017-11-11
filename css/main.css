@@ -1,5 +1,5 @@
 * {
-   border: .25px solid green
+   /*border: .25px solid green*/
 }
 
 /*font-family: 'Finger Paint', cursive;
@@ -20,6 +20,7 @@ body {
 nav {
    display: flex;
    flex-direction: row;
+   justify-content: space-between;
 }
 
 .logo {
@@ -31,14 +32,15 @@ nav {
    width: 80%;
 }
 
-img {
-   margin-left: auto;
+.menuImg {
+   /*margin-left: auto;*/
 }
 
 .messageContainer {
+   height: 50px;
    display: flex;
-   justify-content: space-around;
-   height: 75px;
+   align-items: flex-end;
+   justify-content: center;
 }
 
 .message {
@@ -46,6 +48,7 @@ img {
    vertical-align: bottom;
    font-size: 18px;
    font-family: 'Lato', sans-serif;
+   margin-bottom: 10px;
 }
 
 /* === BOARD SECTION === */

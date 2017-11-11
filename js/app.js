@@ -4,7 +4,7 @@
 let userBoats = [];
 let enemyBoats = [];
 let size = 4;
-let availBoats = [['Cat',3],['Fishing',2],['Tender', 1]];
+let availBoats = [['Catamaran',3],['Fishing Boat',2],['Tender', 1]];
 let availEnemy = [['Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
 
 // === BOARD RENDER ===
@@ -61,6 +61,13 @@ const boatPlacement = (event) => {
       killBoatPlaceClicks();
       //placeEnemyBoats();
       gamePlay();
+   }
+}
+
+const killBoatPlaceClicks = () => {
+   let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
+   for (let i = 0; i < $heroSqEmpty.length; i++) {
+      $($heroSqEmpty).eq(i).off();
    }
 }
 
@@ -169,13 +176,6 @@ const checkConflicts = (row, col, board, newBoatLength) => {
             return true
          }
       }
-   }
-}
-
-const killBoatPlaceClicks = () => {
-   let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
-   for (let i = 0; i < $heroSqEmpty.length; i++) {
-      $($heroSqEmpty).eq(i).off();
    }
 }
 
