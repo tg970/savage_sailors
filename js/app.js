@@ -40,9 +40,10 @@ const userShot = (event) => {
 }
 
 const boatPlacement = (event) => {
+   let newBoatLength = availBoats[0][1]
    let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
    let col = Number($(event.currentTarget).attr('id'));
-   if (checkConflicts(row, col, `.heroSq`, availBoats) && (col <= size - availBoats[0][1])) {
+   if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
       userBoats[0].posBuild(row, col);
@@ -120,10 +121,11 @@ class EnemyBoat extends Boat {
 
 const placeEnemyBoats = () => {
    while (availEnemy.length) {
+      let newBoatLength = availEnemy[0][1]
       let row = Math.floor(Math.random()*size)
-      let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
+      let col = Math.floor(Math.random()*((size-newBoatLength)+1))
       //console.log('new go', row, col);
-      if (checkConflicts(row, col, `.enemySq`, availEnemy)) {
+      if (checkConflicts(row, col, `.enemySq`, newBoatLength)) {
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
          //console.log(enemyBoats[0].name);
          availEnemy.shift();
@@ -142,22 +144,21 @@ const placeEnemyBoats = () => {
    console.log(enemyBoats);
 }
 
-const checkConflicts = (row, col, board, boatsLeft) => {
+const checkConflicts = (row, col, board, newBoatLength) => {
    let $row = $(board).filter(`.${row}`)
-   let testCnt = boatsLeft[0][1]
    //console.log($enemyRow);
    for (let i = 0; i < $row.length; i++) {
       let tmpCol = $($row[i]).attr('id')
       let tmpRow = $($row[i]).attr('class').split(' ')[1]
       //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
-      if ( testCnt > 0 && tmpCol >= col) {
+      if ( newBoatLength > 0 && tmpCol >= col) {
          if ($($row[i]).hasClass('bb')) {
             //console.log('break');
             return false
          } else {
-            testCnt--
+            newBoatLength--
          }
-         if (testCnt == 0) {
+         if (newBoatLength == 0) {
             return true
          }
       }
