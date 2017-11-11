@@ -55,10 +55,9 @@ const boatPlacement = (event) => {
       }
    }
    if (availBoats.length == 0) {
-      console.log('game play');
-      placeEnemyBoats();
-      //kill placing clicks
-      //return gamePlay
+      killBoatPlaceClicks();
+      //placeEnemyBoats();
+      gamePlay();
    }
 }
 
@@ -125,15 +124,16 @@ const placeEnemyBoats = () => {
    while (availEnemy.length) {
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
-      console.log(row, col);
-      let $enemySq = $(`.enemySq`)
+      //console.log('new go', row, col);
+      let $enemyRow = $(`.enemySq`).filter(`.${row}`)
       let testCnt = availEnemy[0][1]
-      for (let i = 0; i < $enemySq.length; i++) {
-         let tmpCol = $($enemySq[i]).attr('id')
-         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-         //console.log($enemySq, 'cnt', testCnt, 'tmpcol', tmpCol);
-         if ( testCnt > 0 && tmpCol >= col && tmpRow == row) {
-            if ($($enemySq[i]).hasClass('bb')) {
+      //console.log($enemyRow);
+      for (let i = 0; i < $enemyRow.length; i++) {
+         let tmpCol = $($enemyRow[i]).attr('id')
+         let tmpRow = $($enemyRow[i]).attr('class').split(' ')[1]
+         //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
+         if ( testCnt > 0 && tmpCol >= col) {
+            if ($($enemyRow[i]).hasClass('bb')) {
                console.log('break');
                break
             } else {
@@ -159,9 +159,20 @@ const placeEnemyBoats = () => {
    }
 }
 
+const killBoatPlaceClicks = () => {
+   let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
+   for (let i = 0; i < $heroSqEmpty.length; i++) {
+      $($heroSqEmpty).eq(i).off();
+   }
+}
+
+const gamePlay = () => {
+   console.log('Game Play');
+}
+
 const startGame = () => {
    buildBoards(size);
-   //placeEnemyBoats();
+   placeEnemyBoats();
    //possPostHero = buildPossiblePositions();
    //alert('Click the square where you want to place your boat');
 }
