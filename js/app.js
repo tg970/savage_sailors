@@ -26,48 +26,12 @@ const buildBoards = (size) => {
       for (let j = 0; j < size; j++) {
          let $sq = $('<div>').addClass('enemySq').attr('id',`${j}`)
          $sq.addClass(`${i}`)
-         $sq.on('click',userShot)
+         //$sq.on('click',userShot)
          $container.append($sq)
       };
    $('.enemy').append($container)
    }
 }
-
-const placeEnemyBoats = () => {
-   while (availEnemy.length) {
-      let row = Math.floor(Math.random()*size)
-      let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
-      console.log(row, col);
-      let $enemySq = $(`.enemySq`)
-      let testCnt = availEnemy[0][1]
-      for (let i = 0; i < $enemySq.length; i++) {
-         let tmpCol = $($enemySq[i]).attr('id')
-         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-         //console.log($enemySq, 'cnt', testCnt, 'tmpcol', tmpCol);
-         if ( testCnt > 0 && tmpCol >= col && tmpRow == row) {
-            if ($($enemySq[i]).hasClass('bb')) {
-               console.log('break');
-               break
-            } else {
-               testCnt--
-            }
-            if (testCnt == 0) {
-               enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
-               //console.log(enemyBoats[0].name);
-               availEnemy.shift();
-               enemyBoats[0].posBuild(row, col);
-               enemyBoats[0].colorIn(row, col)
-            }
-         }
-
-      }
-   }
-   console.log(enemyBoats);
-   // for (let boat in enemyBoats) {
-   //    console.log(enemyBoats[boat].position);
-   // }
-}
-
 
 // === CLICK HANDERLERS ===
 
@@ -92,6 +56,7 @@ const boatPlacement = (event) => {
    }
    if (availBoats.length == 0) {
       console.log('game play');
+      placeEnemyBoats();
       //kill placing clicks
       //return gamePlay
    }
@@ -156,9 +121,47 @@ class EnemyBoat extends Boat {
    }
 }
 
+const placeEnemyBoats = () => {
+   while (availEnemy.length) {
+      let row = Math.floor(Math.random()*size)
+      let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
+      console.log(row, col);
+      let $enemySq = $(`.enemySq`)
+      let testCnt = availEnemy[0][1]
+      for (let i = 0; i < $enemySq.length; i++) {
+         let tmpCol = $($enemySq[i]).attr('id')
+         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+         //console.log($enemySq, 'cnt', testCnt, 'tmpcol', tmpCol);
+         if ( testCnt > 0 && tmpCol >= col && tmpRow == row) {
+            if ($($enemySq[i]).hasClass('bb')) {
+               console.log('break');
+               break
+            } else {
+               testCnt--
+            }
+            if (testCnt == 0) {
+               enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
+               //console.log(enemyBoats[0].name);
+               availEnemy.shift();
+               enemyBoats[0].posBuild(row, col);
+               enemyBoats[0].colorIn(row, col)
+            }
+         }
+      }
+      if (!availEnemy.length) {
+         let $enemySq = $(`.enemySq`)
+         //console.log($enemySq);
+         for (let i = 0; i < $enemySq.length; i++) {
+            //console.log($($enemySq[i]));
+            $($enemySq[i]).on('click', userShot)
+         }
+      }
+   }
+}
+
 const startGame = () => {
    buildBoards(size);
-   placeEnemyBoats();
+   //placeEnemyBoats();
    //possPostHero = buildPossiblePositions();
    //alert('Click the square where you want to place your boat');
 }
