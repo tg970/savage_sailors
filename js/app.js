@@ -71,7 +71,11 @@ const userShot = (event) => {
    let row = getRow(event);
    let col = getCol(event);
    if (checkHit(row, col, enemyBoats)) {
+      renderHit(event)
       console.log(`That's a HIT!!!!`)
+   } else {
+      console.log(`Misssssed....`);
+   }
 }
 
 // === Henderler Dependencies ===
@@ -80,6 +84,10 @@ const getRow = (event) => {
 }
 const getCol = (event) => {
    return Number($(event.currentTarget).attr('id'));
+}
+const renderHit = (event) => {
+   $(event.currentTarget).off();
+   $(event.currentTarget).addClass(`hit`);
 }
 
 // === LOGIC LAYER ===
@@ -96,6 +104,9 @@ class Boat {
          this.position[i] = [row, col + i]
          this.hit.push(false)
       }
+   }
+   damage() {
+      console.log('damage');
    }
 }
 
@@ -188,6 +199,18 @@ const checkConflicts = (row, col, board, newBoatLength) => {
          }
       }
    }
+}
+
+const checkHit = (row, col, otherBoats) => {
+   for (let boat of otherBoats) {
+      for (let post of boat.position) {
+         if (post[0] == row && post[1] == col) {
+            boat.damage();
+            return true
+         }
+      }
+   }
+   return false
 }
 
 const gamePlay = () => {
