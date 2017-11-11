@@ -6,7 +6,6 @@ let enemyBoats = [];
 let size = 4;
 let availBoats = [['Cat',3],['Fishing',2],['Tender', 1]];
 let availEnemy = [['Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
-let possPostHero = []
 
 // === BOARD RENDER ===
 const buildBoards = (size) => {
@@ -47,8 +46,8 @@ const placeEnemyBoats = () => {
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
-
-         //console.log('boat built');
+         enemyBoats[0].colorIn(row, col)
+         console.log('boat built', enemyBoats);
       }
 
 
@@ -61,7 +60,7 @@ const placeEnemyBoats = () => {
       //enemyBoats[0].posBuild(tempArr[0], tempArr[1]);
       //removeEnemyPos(row, col);
    }
-   console.log(enemyBoats);
+   //console.log(enemyBoats);
 }
 
 // const buildPossiblePositions = () => {
@@ -166,17 +165,19 @@ class EnemyBoat extends Boat {
       super(name, length)
    }
    colorIn(row, col) {
-      let $div = 1//$(event).siblings()
-      let cnt = this.length-1
-      // for (let i = 0; i < $div.length; i++) {
-      //
-      //    let id = $($div[i]).attr('id')
-      //    //console.log(id);
-      //    if ( id > col && cnt > 0 ) {
-      //       $($div[i]).addClass('bb').off()
-      //       cnt--
-      //    }
-      // }
+      let $enemySq = $('.enemySq')
+      let cnt = this.length
+
+      for (let i = 0; i < $enemySq.length; i++) {
+         let tmpCol = $($enemySq[i]).attr('id')
+         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+            console.log('yep');
+            $($enemySq[i]).addClass('bb')
+            cnt--
+         }
+      }
    }
 }
 
