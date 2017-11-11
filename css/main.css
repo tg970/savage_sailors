@@ -60,7 +60,7 @@ img {
    justify-content: space-around;
 }
 
-.row {
+.heroRow, .enemyRow {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;

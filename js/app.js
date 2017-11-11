@@ -11,7 +11,7 @@ let availEnemy = [['Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
 const buildBoards = (size) => {
    // Build User Board
    for (let i = 0; i < size; i++) {
-      const $container = $('<div>').addClass('row')
+      const $container = $('<div>').addClass('heroRow')
       for (let j = 0; j < size; j++) {
          let $sq = $('<div>').addClass('heroSq').attr('id',`${j}`)
          // if (j <= (size - availEnemy[0][1])) {
@@ -25,7 +25,7 @@ const buildBoards = (size) => {
    }
    //Build Enemy Board
    for (let i = 0; i < size; i++) {
-      const $container = $('<div>').addClass('row')
+      const $container = $('<div>').addClass('enemyRow')
       for (let j = 0; j < size; j++) {
          let $sq = $('<div>').addClass('enemySq').attr('id',`${j}`)
          $sq.addClass(`${i}`)
@@ -41,15 +41,54 @@ const placeEnemyBoats = () => {
    while (availEnemy.length) {
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
-      //console.log(row, col);
-      if (col <= size - availBoats[0][1]){
-         enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
-         availEnemy.shift();
-         enemyBoats[0].posBuild(row, col);
-         enemyBoats[0].colorIn(row, col)
-         console.log('boat built', enemyBoats);
+      console.log(row, col);
+      let $enemySq = $(`.enemySq`)
+      let cnt = this.length
+      for (let i = 0; i < $enemySq.length; i++) {
+         let tmpCol = $($enemySq[i]).attr('id')
+         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+            if ($enemySq[i].hasClass('bb')) {
+               console.log('break');
+               break
+            } else {
+               cnt--
+            }
+         } else if (cnt == 0) {
+            enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
+            console.log(enemyBoats[0].name);
+            availEnemy.shift();
+            enemyBoats[0].posBuild(row, col);
+         }
       }
-
+   }
+}
+      // if (true) {
+      //    if (col <= size - availBoats[0][1]){
+      //       enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
+      //       console.log(enemyBoats[0].name);
+      //       availEnemy.shift();
+      //       enemyBoats[0].posBuild(row, col);
+            //enemyBoats[0].colorIn(row, col)
+            //console.log('boat built', enemyBoats);
+      //    }
+      // }
+      // colorIn(row, col) {
+      //    let $enemySq = $(`.enemySq`)
+      //    //console.log($enemySq);
+      //    let cnt = this.length
+      //    for (let i = 0; i < $enemySq.length; i++) {
+      //       let tmpCol = $($enemySq[i]).attr('id')
+      //       let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+      //       //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+      //       if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+      //          //console.log('yep');
+      //          $($enemySq[i]).addClass('bb')
+      //          cnt--
+      //       }
+      //    }
+      // }
 
    // let possEnemyPost = buildPossiblePositions();
    // let countEnemy = availEnemy.length
@@ -59,9 +98,9 @@ const placeEnemyBoats = () => {
    //    let tempArr = checkPost()
       //enemyBoats[0].posBuild(tempArr[0], tempArr[1]);
       //removeEnemyPos(row, col);
-   }
+
    //console.log(enemyBoats);
-}
+// }
 
 // const buildPossiblePositions = () => {
 //    let tempArr = []
@@ -164,21 +203,21 @@ class EnemyBoat extends Boat {
    constructor(name, length) {
       super(name, length)
    }
-   colorIn(row, col) {
-      let $enemySq = $('.enemySq')
-      let cnt = this.length
-
-      for (let i = 0; i < $enemySq.length; i++) {
-         let tmpCol = $($enemySq[i]).attr('id')
-         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
-         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
-            console.log('yep');
-            $($enemySq[i]).addClass('bb')
-            cnt--
-         }
-      }
-   }
+   // colorIn(row, col) {
+   //    let $enemySq = $(`.enemySq`)
+   //    //console.log($enemySq);
+   //    let cnt = this.length
+   //    for (let i = 0; i < $enemySq.length; i++) {
+   //       let tmpCol = $($enemySq[i]).attr('id')
+   //       let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+   //       //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+   //       if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+   //          //console.log('yep');
+   //          $($enemySq[i]).addClass('bb')
+   //          cnt--
+   //       }
+   //    }
+   // }
 }
 
 const startGame = () => {
