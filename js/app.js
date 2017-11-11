@@ -40,19 +40,17 @@ const userShot = (event) => {
 }
 
 const boatPlacement = (event) => {
-   if (availBoats.length >= 1) {
-      let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
-      let col = Number($(event.currentTarget).attr('id'));
-      if (col <= size - availBoats[0][1]) {
-         userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
-         availBoats.shift();
-         userBoats[0].posBuild(row, col);
-         //console.log('boat built');
-         console.log(userBoats);
-         userBoats[0].colorIn($(event.currentTarget), row, col)
-      } else {
-         console.log('click again');
-      }
+   let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
+   let col = Number($(event.currentTarget).attr('id'));
+   if (checkConflicts(row, col, `.heroSq`, availBoats) && (col <= size - availBoats[0][1])) {
+      userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
+      availBoats.shift();
+      userBoats[0].posBuild(row, col);
+      //console.log('boat built');
+      console.log(userBoats);
+      userBoats[0].colorIn($(event.currentTarget), row, col)
+   } else {
+      console.log('click again');
    }
    if (availBoats.length == 0) {
       killBoatPlaceClicks();
@@ -125,7 +123,7 @@ const placeEnemyBoats = () => {
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
       //console.log('new go', row, col);
-      if (checkConflicts(row, col, `.enemySq`)) {
+      if (checkConflicts(row, col, `.enemySq`, availEnemy)) {
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
          //console.log(enemyBoats[0].name);
          availEnemy.shift();
@@ -144,9 +142,9 @@ const placeEnemyBoats = () => {
    console.log(enemyBoats);
 }
 
-const checkConflicts = (row, col, board) => {
+const checkConflicts = (row, col, board, boatsLeft) => {
    let $row = $(board).filter(`.${row}`)
-   let testCnt = availEnemy[0][1]
+   let testCnt = boatsLeft[0][1]
    //console.log($enemyRow);
    for (let i = 0; i < $row.length; i++) {
       let tmpCol = $($row[i]).attr('id')
@@ -154,7 +152,7 @@ const checkConflicts = (row, col, board) => {
       //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
       if ( testCnt > 0 && tmpCol >= col) {
          if ($($row[i]).hasClass('bb')) {
-            console.log('break');
+            //console.log('break');
             return false
          } else {
             testCnt--
