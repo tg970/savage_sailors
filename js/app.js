@@ -43,26 +43,29 @@ const placeEnemyBoats = () => {
       let col = Math.floor(Math.random()*((size-availEnemy[0][1])+1))
       console.log(row, col);
       let $enemySq = $(`.enemySq`)
-      let cnt = this.length
+      let testCnt = availEnemy[0][1]
       for (let i = 0; i < $enemySq.length; i++) {
          let tmpCol = $($enemySq[i]).attr('id')
          let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
-         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
-            if ($enemySq[i].hasClass('bb')) {
+         //console.log($enemySq, 'cnt', testCnt, 'tmpcol', tmpCol);
+         if ( testCnt > 0 && tmpCol >= col && tmpRow == row) {
+            if ($($enemySq[i]).hasClass('bb')) {
                console.log('break');
                break
             } else {
-               cnt--
+               testCnt--
             }
-         } else if (cnt == 0) {
+         }
+         if (testCnt == 1) {
             enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
-            console.log(enemyBoats[0].name);
+            //console.log(enemyBoats[0].name);
             availEnemy.shift();
             enemyBoats[0].posBuild(row, col);
+            enemyBoats[0].colorIn(row, col)
          }
       }
    }
+   console.log(enemyBoats);
 }
       // if (true) {
       //    if (col <= size - availBoats[0][1]){
@@ -203,21 +206,21 @@ class EnemyBoat extends Boat {
    constructor(name, length) {
       super(name, length)
    }
-   // colorIn(row, col) {
-   //    let $enemySq = $(`.enemySq`)
-   //    //console.log($enemySq);
-   //    let cnt = this.length
-   //    for (let i = 0; i < $enemySq.length; i++) {
-   //       let tmpCol = $($enemySq[i]).attr('id')
-   //       let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-   //       //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
-   //       if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
-   //          //console.log('yep');
-   //          $($enemySq[i]).addClass('bb')
-   //          cnt--
-   //       }
-   //    }
-   // }
+   colorIn(row, col) {
+      let $enemySq = $(`.enemySq`)
+      //console.log($enemySq);
+      let cnt = this.length
+      for (let i = 0; i < $enemySq.length; i++) {
+         let tmpCol = $($enemySq[i]).attr('id')
+         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+            //console.log('yep');
+            $($enemySq[i]).addClass('bb')
+            cnt--
+         }
+      }
+   }
 }
 
 const startGame = () => {
