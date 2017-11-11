@@ -1,5 +1,5 @@
 * {
-   /*border: .25px solid green*/
+   border: .25px solid green
 }
 
 /*font-family: 'Finger Paint', cursive;
@@ -16,7 +16,7 @@ body {
    background-color: #085368;
 }
 
-/* === NAV SECTION ELEMENTS === */
+/* === NAV & MESSAGE SECTION ELEMENTS === */
 nav {
    display: flex;
    flex-direction: row;
@@ -35,16 +35,24 @@ img {
    margin-left: auto;
 }
 
+.messageContainer {
+   display: flex;
+   justify-content: space-around;
+   height: 75px;
+}
+
+.message {
+   text-align: center;
+   vertical-align: bottom;
+   font-size: 18px;
+   font-family: 'Lato', sans-serif;
+}
+
 /* === BOARD SECTION === */
 .container {
    display: flex;
    justify-content: space-around;
    /*height: 450px;*/
-}
-
-.message {
-   height: 75px;
-   /*background-color: yellow;*/
 }
 
 .board {

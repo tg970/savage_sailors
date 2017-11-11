@@ -41,6 +41,7 @@ const userShot = (event) => {
 
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
+   let newBoatName = availBoats[0][0]
    let row = Number($(event.currentTarget).attr('class').split(' ')[1]);
    let col = Number($(event.currentTarget).attr('id'));
    if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
@@ -50,8 +51,11 @@ const boatPlacement = (event) => {
       //console.log('boat built');
       console.log(userBoats);
       userBoats[0].colorIn($(event.currentTarget), row, col)
+      if (availBoats.length > 0) {
+         userBoats[0].placedMessage(availBoats[0][0])
+      }
    } else {
-      console.log('click again');
+      $('.message').text(`Your ${newBoatName} won't fit there, try again...`)
    }
    if (availBoats.length == 0) {
       killBoatPlaceClicks();
@@ -95,6 +99,9 @@ class HeroBoat extends Boat {
             cnt--
          }
       }
+   }
+   placedMessage(nextBoatName) {
+      $('.message').text(`Your ${this.name} has been put on the board! Click again to place your ${nextBoatName}:`)
    }
 }
 
@@ -173,7 +180,7 @@ const killBoatPlaceClicks = () => {
 }
 
 const gamePlay = () => {
-   console.log('Game Play');
+   $('.message').text(`Alright, Let's Play!`);
 }
 
 const startGame = () => {
