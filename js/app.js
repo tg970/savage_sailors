@@ -4,37 +4,25 @@
 let userBoats = [];
 let enemyBoats = [];
 let size = 4;
-let availBoats = [['Catamaran',3],['Fishing Boat',2],['Tender', 1]];
-let availEnemy = [['Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
+let availBoats = [['Your Catamaran',3],['The Fishing Boat',2],['Tender', 1]];
+let availEnemy = [['Enemy Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
+let userTurn = false;
 
 // === BOARD RENDER ===
-const buildBoards = (size) => {
-   // Build User Board
+const buildBoard = (user, size, func) => {
    for (let i = 0; i < size; i++) {
-      const $container = $('<div>').addClass('heroRow')
+      const $container = $('<div>').addClass(`${user}Row`)
       for (let j = 0; j < size; j++) {
-         let $sq = $('<div>').addClass('heroSq').attr('id',`${j}`)
+         let $sq = $('<div>').addClass(`${user}Sq`).attr(`id`,`${j}`)
          $sq.addClass(`${i}`)
-         $sq.on('click',boatPlacement)
+         $sq.on('click',func)
          $container.append($sq)
       };
-   $('.hero').append($container)
-   }
-   //Build Enemy Board
-   for (let i = 0; i < size; i++) {
-      const $container = $('<div>').addClass('enemyRow')
-      for (let j = 0; j < size; j++) {
-         let $sq = $('<div>').addClass('enemySq').attr('id',`${j}`)
-         $sq.addClass(`${i}`)
-         //$sq.on('click',userShot)
-         $container.append($sq)
-      };
-   $('.enemy').append($container)
+   $(`.${user}`).append($container)
    }
 }
 
 // === CLICK HANDERLERS ===
-
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
    let newBoatName = availBoats[0][0]
@@ -44,42 +32,46 @@ const boatPlacement = (event) => {
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
       availBoats.shift();
       userBoats[0].posBuild(row, col);
-      //console.log('boat built');
-      console.log(userBoats);
       userBoats[0].colorIn($(event.currentTarget), row, col)
       if (availBoats.length > 0) {
          userBoats[0].placedMessage(availBoats[0][0])
       }
+      //console.log('boat built');
+      //console.log(userBoats);
    } else {
-      $('.message').text(`Your ${newBoatName} won't fit there, try again...`)
+      $('.message').text(`${newBoatName} won't fit there, try again...`)
    }
    if (availBoats.length == 0) {
       killBoatPlaceClicks();
-      //placeEnemyBoats();
-      gamePlay();
+      buildBoard(`enemy`, size, userShot);
+      placeEnemyBoats();
+      $('.message').text(`Alright, Let's Play!`);
+      return gamePlay();
    }
-}
-
+} //returns gamePlay
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
    for (let i = 0; i < $heroSqEmpty.length; i++) {
       $($heroSqEmpty).eq(i).off();
    }
 }
-
 const userShot = (event) => {
-   let row = getRow(event);
-   let col = getCol(event);
-   let shot = checkHit(row, col, enemyBoats)
-   //console.log(shot);
-   if (shot.t) {
-      $('.message').text(`That's a HIT!!!!`)
-      shot.b.damage(shot.opp)
-      console.log(enemyBoats);
-      renderHit(event)
-   } else {
-      $('.message').text(`Misssssed....`);
-      renderMiss(event)
+   console.log('user fired');
+   if (userTurn) {
+      let row = getRow(event);
+      let col = getCol(event);
+      let shot = checkHit(row, col, enemyBoats);
+      if (shot.t) {
+         $('.message').text(`That's a HIT!!!!`)
+         shot.b.damage(enemyBoats)
+         renderHit(event)
+      } else {
+         $('.message').text(`Misssssed....`);
+         renderMiss(event)
+      }
+      userTurn = !userTurn
+      console.log('userturn to', userTurn);
+      return gamePlay();
    }
 }
 
@@ -100,7 +92,6 @@ const renderMiss = (event) => {
 }
 
 // === LOGIC LAYER ===
-
 class Boat {
    constructor(name, length) {
       this.name = name,
@@ -115,7 +106,7 @@ class Boat {
       }
    }
    damage(opp) {
-      //console.log(this);
+      console.log(`this is`, this, opp);
       this.hit.shift();
       this.hit.push(true);
       this.checkForSunk(opp);
@@ -132,7 +123,6 @@ class Boat {
       opp.splice(opp.indexOf(this),1);
    }
 }
-
 class HeroBoat extends Boat {
    constructor(name, length) {
       super(name, length)
@@ -156,7 +146,6 @@ class HeroBoat extends Boat {
       $('.message').text(`Your ${this.name} has been put on the board! Click again to place your ${nextBoatName}:`)
    }
 }
-
 class EnemyBoat extends Boat {
    constructor(name, length) {
       super(name, length)
@@ -177,7 +166,6 @@ class EnemyBoat extends Boat {
       }
    }
 }
-
 const placeEnemyBoats = () => {
    while (availEnemy.length) {
       let newBoatLength = availEnemy[0][1]
@@ -189,20 +177,11 @@ const placeEnemyBoats = () => {
          //console.log(enemyBoats[0].name);
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
-         enemyBoats[0].colorIn(row, col)
-      }
-      if (!availEnemy.length) {
-         let $enemySq = $(`.enemySq`)
-         //console.log($enemySq);
-         for (let i = 0; i < $enemySq.length; i++) {
-            //console.log($($enemySq[i]));
-            $($enemySq[i]).on('click', userShot)
-         }
+         enemyBoats[0].colorIn(row, col);
+         //console.log(enemyBoats);
       }
    }
-   console.log(enemyBoats);
 }
-
 const checkConflicts = (row, col, board, newBoatLength) => {
    let $row = $(board).filter(`.${row}`)
    //console.log($enemyRow);
@@ -223,31 +202,32 @@ const checkConflicts = (row, col, board, newBoatLength) => {
       }
    }
 }
-
+const computerShot = () => {
+   console.log('computer shooting');
+   userTurn = !userTurn
+}
 const checkHit = (row, col, otherBoats) => {
    for (let boat of otherBoats) {
       for (let post of boat.position) {
          if (post[0] == row && post[1] == col) {
             //boat.damage();
-            return {'t':true, b:boat, opp:otherBoats}
+            return {'t':true, b:boat}
          }
       }
    }
    return false
 }
-
 const gamePlay = () => {
-   $('.message').text(`Alright, Let's Play!`);
+   console.log('Game Play', userBoats, enemyBoats);
+   if ( userBoats.length > 0 && userBoats.length > 0 ) {
+      computerShot();
+   }
+   //console.log('userTurn now', userTurn);
 }
-
 const startGame = () => {
    $('.message').text("Place your Boats!")
-   buildBoards(size);
-   placeEnemyBoats();
-   //possPostHero = buildPossiblePositions();
-   //alert('Click the square where you want to place your boat');
+   buildBoard(`hero`, size, boatPlacement);
 }
-
 // === WINDOW ON LOAD/PAGE READY ===
 $(() => {
 
