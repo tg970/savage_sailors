@@ -87,11 +87,11 @@ nav {
    width: 95px;
    height: 95px;
    border: .25px solid black;
+   opacity: .75;
 }
 
 .enemySq {
    background-color: #81F7FF;
-   opacity: .75;
 }
 
 .bb {

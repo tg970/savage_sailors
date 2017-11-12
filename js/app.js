@@ -7,6 +7,7 @@ let size = 4;
 let availBoats = [['Your Catamaran',3],['The Fishing Boat',2],['Tender', 1]];
 let availEnemy = [['Enemy Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
 let userTurn = false;
+let compShotOpt = [];
 
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
@@ -45,6 +46,7 @@ const boatPlacement = (event) => {
       killBoatPlaceClicks();
       buildBoard(`enemy`, size, userShot);
       placeEnemyBoats();
+      genCompShotOpt();
       $('.message').text(`Alright, Let's Play!`);
       return gamePlay();
    }
@@ -70,7 +72,6 @@ const userShot = (event) => {
          renderMiss(event)
       }
       userTurn = !userTurn
-      console.log('userturn to', userTurn);
       return gamePlay();
    }
 }
@@ -106,7 +107,7 @@ class Boat {
       }
    }
    damage(opp) {
-      console.log(`this is`, this, opp);
+      //console.log(`this is`, this, opp);
       this.hit.shift();
       this.hit.push(true);
       this.checkForSunk(opp);
@@ -123,6 +124,7 @@ class Boat {
       opp.splice(opp.indexOf(this),1);
    }
 }
+
 class HeroBoat extends Boat {
    constructor(name, length) {
       super(name, length)
@@ -146,6 +148,7 @@ class HeroBoat extends Boat {
       $('.message').text(`Your ${this.name} has been put on the board! Click again to place your ${nextBoatName}:`)
    }
 }
+
 class EnemyBoat extends Boat {
    constructor(name, length) {
       super(name, length)
@@ -166,6 +169,7 @@ class EnemyBoat extends Boat {
       }
    }
 }
+
 const placeEnemyBoats = () => {
    while (availEnemy.length) {
       let newBoatLength = availEnemy[0][1]
@@ -182,6 +186,7 @@ const placeEnemyBoats = () => {
       }
    }
 }
+
 const checkConflicts = (row, col, board, newBoatLength) => {
    let $row = $(board).filter(`.${row}`)
    //console.log($enemyRow);
@@ -202,8 +207,31 @@ const checkConflicts = (row, col, board, newBoatLength) => {
       }
    }
 }
+
+const genCompShotOpt = () => {
+   for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+         compShotOpt.push([i, j])
+      }
+   }
+   //console.log(compShotOpt);
+}
+
 const computerShot = () => {
    console.log('computer shooting');
+   let randIndex = Math.floor(Math.random()*compShotOpt.length)
+   let target = compShotOpt[randIndex]
+   compShotOpt.splice(randIndex, 1)
+   console.log(target);
+   let shot = checkHit(target[0], target[1], userBoats);
+   if (shot.t) {
+      $('.message').text(`That's a HIT!!!!`)
+      shot.b.damage(userBoats)
+      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit`)
+   } else {
+      $('.message').text(`Misssssed....`);
+      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss`)
+   }
    userTurn = !userTurn
 }
 const checkHit = (row, col, otherBoats) => {
