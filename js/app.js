@@ -17,11 +17,15 @@ const buildBoard = (user, size, func) => {
          let $sq = $('<div>').addClass(`${user}Sq`).attr(`id`,`${j}`)
          $sq.addClass(`${i}`)
          $sq.on('click',func)
+         setTimeout(animateSq, 500)
          $container.append($sq)
       };
    $(`.${user}`).append($container)
    }
    //$(`.messageContainer`)
+}
+const animateSq = () => {
+   $(`.heroSq`).css('display', 'block')
 }
 
 // === CLICK HANDERLERS ===
