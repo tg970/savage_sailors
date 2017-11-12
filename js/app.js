@@ -8,6 +8,7 @@ let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Ten
 let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
+let vertical = true;
 
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
@@ -44,7 +45,7 @@ const boatPlacement = (event) => {
    let id = availBoats[0][2]
    let row = getRow(event);
    let col = getCol(event);
-   if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
+   if (checkConflicts(row, col, `.heroSq`, newBoatLength)) {
       $(`.messageContainer`).removeClass(`start`)
       $(`#${id}`).removeClass(`notplaced`)
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1],availBoats[0][2]));
@@ -55,7 +56,7 @@ const boatPlacement = (event) => {
          userBoats[0].placedMessage(availBoats[0][0])
       }
       //console.log('boat built');
-      //console.log(userBoats);
+      console.log(userBoats);
    } else {
       $('.message').text(`${newBoatName} won't fit there, try again...`)
    }
@@ -119,9 +120,16 @@ class Boat {
       this.imgId = imgId
    }
    posBuild(row, col) {
-      for (let i = 0; i < this.length; i++) {
-         this.position[i] = [row, col + i]
-         this.hit.push(false)
+      if (!vertical) {
+         for (let i = 0; i < this.length; i++) {
+            this.position[i] = [row, col + i]
+            this.hit.push(false)
+         }
+      } else {
+         for (let i = 0; i < this.length; i++) {
+            this.position[i] = [row + i, col]
+            this.hit.push(false)
+         }
       }
    }
    damage(opp) {
@@ -153,14 +161,31 @@ class HeroBoat extends Boat {
    colorIn(event, row, col) {
       $(event).addClass('bb')
       $(event).off()
-      let $div = $(event).siblings()
+      if (!vertical) {
+         let $div = $(event).siblings()
+         let cnt = this.length-1
+         for (let i = 0; i < $div.length; i++) {
+            let id = $($div[i]).attr('id')
+            //console.log(id);
+            if ( id > col && cnt > 0 ) {
+               $($div[i]).addClass('bb').off()
+               cnt--
+            }
+         }
+      } else {
+         this.colorInVert(row, col)
+      }
+   }
+   colorInVert(row, col) {
+      console.log(`colorInVert running`, row, col);
+      let $col = $('.heroSq').filter(`#${col}`)
       let cnt = this.length-1
-      for (let i = 0; i < $div.length; i++) {
-
-         let id = $($div[i]).attr('id')
+      console.log($col, cnt);
+      for (let i = 0; i < $col.length; i++) {
+         let tmpRow = $($col[i]).attr('class').split(' ')[1]
          //console.log(id);
-         if ( id > col && cnt > 0 ) {
-            $($div[i]).addClass('bb').off()
+         if ( tmpRow > row && cnt > 0 ) {
+            $($col[i]).addClass('bb').off()
             cnt--
          }
       }
@@ -210,21 +235,50 @@ const placeEnemyBoats = () => {
 }
 
 const checkConflicts = (row, col, board, newBoatLength) => {
+   if (vertical) {
+      return checkConflictsVert(row, col, board, newBoatLength)
+   }
+   //console.log('checking row conflicts');
    let $row = $(board).filter(`.${row}`)
-   //console.log($enemyRow);
-   for (let i = 0; i < $row.length; i++) {
-      let tmpCol = $($row[i]).attr('id')
-      let tmpRow = $($row[i]).attr('class').split(' ')[1]
-      //console.log($enemyRow, 'cnt', testCnt, 'tmpcol', tmpCol);
-      if ( newBoatLength > 0 && tmpCol >= col) {
-         if ($($row[i]).hasClass('bb')) {
-            //console.log('break');
-            return false
-         } else {
-            newBoatLength--
+   //console.log($row);
+   if ( col <= size - newBoatLength ) {
+      for (let i = 0; i < $row.length; i++) {
+         let tmpCol = $($row[i]).attr('id')
+         let tmpRow = $($row[i]).attr('class').split(' ')[1]
+         //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
+         if ( newBoatLength > 0 && tmpCol >= col ) {
+            if ($($row[i]).hasClass('bb')) {
+               return false
+            } else {
+               newBoatLength--
+            }
+            if (newBoatLength == 0) {
+               return true
+            }
          }
-         if (newBoatLength == 0) {
-            return true
+      }
+   }
+}
+
+const checkConflictsVert = (row, col, board, newBoatLength) => {
+   let $col = $(board).filter(`#${col}`)
+   //console.log(row, col);
+   if ( row <= size - newBoatLength ) {
+      for (let i = 0; i < $col.length; i++) {
+         let tmpCol = $($col[i]).attr('id')
+         let tmpRow = $($col[i]).attr('class').split(' ')[1]
+         //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
+         if ( newBoatLength > 0 && tmpRow >= row) {
+            if ($($col[i]).hasClass('bb')) {
+               //console.log('break');
+               return false
+            } else {
+               newBoatLength--
+            }
+            //console.log('new boat length', newBoatLength);
+            if (newBoatLength == 0) {
+               return true
+            }
          }
       }
    }

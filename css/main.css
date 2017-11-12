@@ -7,7 +7,7 @@ font-family: 'Lato', sans-serif;*/
 
 /* === BODY ELEMENTS === */
 body {
-   max-width: 97%;
+   /*max-width: 97%;*/
    /*align-items: center;*/
    background-image: url("../img/background.png");
    background-size: cover;
