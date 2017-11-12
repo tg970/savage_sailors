@@ -17,15 +17,24 @@ const buildBoard = (user, size, func) => {
          let $sq = $('<div>').addClass(`${user}Sq`).attr(`id`,`${j}`)
          $sq.addClass(`${i}`)
          $sq.on('click',func)
-         setTimeout(animateSq, 500)
+         let delay = getDelay(i, j)
+         $sq.addClass(`hidden`)
+         setTimeout(removeHidden,delay)
+         // $sq.css(`animation-delay`,`${delay}ms`)
          $container.append($sq)
       };
    $(`.${user}`).append($container)
    }
    //$(`.messageContainer`)
 }
-const animateSq = () => {
-   $(`.heroSq`).css('display', 'block')
+// const animateSq = () => {
+//    $(`.heroSq`).css('display', 'block')
+// }
+const getDelay = (i, j) => {
+   return ((i * 400) + ((j+1) * 100))
+}
+const removeHidden = () => {
+   $(`.hidden`).eq(0).removeClass(`hidden`);
 }
 
 // === CLICK HANDERLERS ===
@@ -36,6 +45,7 @@ const boatPlacement = (event) => {
    let row = getRow(event);
    let col = getCol(event);
    if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
+      $(`.messageContainer`).removeClass(`start`)
       $(`#${id}`).removeClass(`notplaced`)
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1],availBoats[0][2]));
       availBoats.shift();
@@ -54,7 +64,7 @@ const boatPlacement = (event) => {
       buildBoard(`enemy`, size, userShot);
       placeEnemyBoats();
       genCompShotOpt();
-      $('.message').text(`Alright, Let's Play!`).removeClass(`start`);
+      $('.message').text(`Alright, Let's Play!`);
       return gamePlay();
    }
 } //returns gamePlay
@@ -156,7 +166,7 @@ class HeroBoat extends Boat {
       }
    }
    placedMessage(nextBoatName) {
-      $('.message').text(`Your ${this.name} has been put on the board! Click again to place your ${nextBoatName}:`)
+      $('.message').text(`${this.name} has been put on the board! Click again to place ${nextBoatName}:`)
    }
 }
 
@@ -262,7 +272,7 @@ const checkHit = (row, col, otherBoats) => {
 const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
-      computerShot();
+      setTimeout(computerShot, 3000);
    }
    if ( userBoats.length == 0 ) {
       $('.message').text(`Game over...  :(`);
@@ -274,7 +284,8 @@ const gamePlay = () => {
 }
 
 const startGame = () => {
-   $('.message').text("Place your Boats!").addClass(`start`)
+   $('.message').text("Place your Boats!")
+   $('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
 }
 

@@ -65,10 +65,9 @@ body {
 .board {
    /*height: 400px;*/
    display: flex;
-   display: flex;
    flex-direction: row;
    align-items: center;
-   justify-content: space-around;
+   justify-content: center;
    /*width: 850px;*/
 }
 
@@ -77,25 +76,32 @@ body {
    width: 400px;
    display: flex;
    flex-direction: column;
-   justify-content: space-around;
+   align-items: center;
+   justify-content: center;
 }
 
 .heroRow, .enemyRow {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
-   justify-content: space-around;
+   justify-content: flex-start;
 }
 
 .heroSq, .enemySq {
    width: 95px;
    height: 95px;
    border: .25px solid black;
-   opacity: .75;
+   /*opacity: .75;*/
    transform: scale(1);
-   animation-name: zip-in;
+   transform: rotate(0deg);
+   /*animation-name: zip-in;
    animation-duration: 1s;
-   animation-iteration-count: 1;
+   animation-iteration-count: 1;*/
+   /*animation-delay: 2000ms;*/
+   /*display: none;*/
+}
+
+.hidden {
    display: none;
 }
 
@@ -131,8 +137,19 @@ body {
    height: inherit;
 }
 
+.boats {
+   display: flex;
+   flex-direction: row;
+}
+
 #cat {
    max-height: 100%;
+   max-width: 50%;
+}
+
+#fish, #dingy {
+   height: 50%;
+   width: 50%;
 }
 
 .notplaced {
@@ -140,9 +157,9 @@ body {
 }
 
 @keyframes zip-in {
-  0% {transform: scale(1.35)}
-  10% {transform: scale(1.45)}
-  20% {transform: scale(1.25)}
-  90% {transform: scale(1.05)}
+  0% {transform: rotate(360deg);}
+  /*10% {transform: scale(1.45)}*/
+  50% {transform: rotate(180deg);}
+  /*90% {transform: scale(1.05)}*/
   100% {}
 }
