@@ -1,5 +1,5 @@
 * {
-   /*border: .25px solid green*/
+   border: .25px solid green
 }
 
 /*font-family: 'Finger Paint', cursive;
@@ -7,8 +7,8 @@ font-family: 'Lato', sans-serif;*/
 
 /* === BODY ELEMENTS === */
 body {
-   max-width: 1250px;
-   align-items: center;
+   max-width: 97%;
+   /*align-items: center;*/
    background-image: url("../img/background.png");
    background-size: cover;
    background-repeat: no-repeat;
@@ -17,7 +17,7 @@ body {
 }
 
 /* === NAV & MESSAGE SECTION ELEMENTS === */
-nav {
+.navi {
    display: flex;
    flex-direction: row;
    justify-content: space-between;
@@ -41,6 +41,10 @@ nav {
    display: flex;
    align-items: flex-end;
    justify-content: center;
+}
+
+.start {
+   transform: translate( -200px, 0px);
 }
 
 .message {
@@ -106,9 +110,26 @@ nav {
 
 .miss {
    background-color: yellow;
+   opacity: .25;
 }
 
 /* === BOTTOM INFO SECTION === */
 .info {
-   height: 150px;
+   height: 200px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+
+.boats, .Ammo, .coconut {
+   width: 33%;
+   height: inherit;
+}
+
+#cat {
+   max-height: 100%;
+}
+
+.notplaced {
+   opacity: .25;
 }

@@ -4,8 +4,8 @@
 let userBoats = [];
 let enemyBoats = [];
 let size = 4;
-let availBoats = [['Your Catamaran',3],['The Fishing Boat',2],['Tender', 1]];
-let availEnemy = [['Enemy Trawler', 3],['Ol Busted Pontoon', 2],['Skiff', 1]];
+let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Tender', 1, `dingy`]];
+let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
 
@@ -21,16 +21,19 @@ const buildBoard = (user, size, func) => {
       };
    $(`.${user}`).append($container)
    }
+   //$(`.messageContainer`)
 }
 
 // === CLICK HANDERLERS ===
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
    let newBoatName = availBoats[0][0]
+   let id = availBoats[0][2]
    let row = getRow(event);
    let col = getCol(event);
    if (checkConflicts(row, col, `.heroSq`, newBoatLength) && (col <= size - newBoatLength)) {
-      userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1]));
+      $(`#${id}`).removeClass(`notplaced`)
+      userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1],availBoats[0][2]));
       availBoats.shift();
       userBoats[0].posBuild(row, col);
       userBoats[0].colorIn($(event.currentTarget), row, col)
@@ -47,7 +50,7 @@ const boatPlacement = (event) => {
       buildBoard(`enemy`, size, userShot);
       placeEnemyBoats();
       genCompShotOpt();
-      $('.message').text(`Alright, Let's Play!`);
+      $('.message').text(`Alright, Let's Play!`).removeClass(`start`);
       return gamePlay();
    }
 } //returns gamePlay
@@ -94,11 +97,12 @@ const renderMiss = (event) => {
 
 // === LOGIC LAYER ===
 class Boat {
-   constructor(name, length) {
+   constructor(name, length, imgId) {
       this.name = name,
       this.length = length,
       this.position = [],
       this.hit = []
+      this.imgId = imgId
    }
    posBuild(row, col) {
       for (let i = 0; i < this.length; i++) {
@@ -266,7 +270,7 @@ const gamePlay = () => {
 }
 
 const startGame = () => {
-   $('.message').text("Place your Boats!")
+   $('.message').text("Place your Boats!").addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
 }
 
