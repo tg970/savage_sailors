@@ -18,10 +18,13 @@ const buildBoard = (user, size, func) => {
          let $sq = $('<div>').addClass(`${user}Sq`).attr(`id`,`${j}`)
          $sq.addClass(`${i}`)
          $sq.on('click',func)
+         if (user == `hero`) {
+            $sq.on('mouseenter',renderBoatHover)
+            $sq.on('mouseleave',deRenderBoatHover)
+         }
          let delay = getDelay(i, j)
          $sq.addClass(`hidden`)
          setTimeout(removeHidden,delay)
-         // $sq.css(`animation-delay`,`${delay}ms`)
          $container.append($sq)
       };
    $(`.${user}`).append($container)
@@ -35,9 +38,6 @@ const buildBoard = (user, size, func) => {
    }
    //$(`.messageContainer`)
 }
-// const animateSq = () => {
-//    $(`.heroSq`).css('display', 'block')
-// }
 const getDelay = (i, j) => {
    return ((i * 400) + ((j+1) * 100))
 }
@@ -76,10 +76,8 @@ const boatPlacement = (event) => {
       return gamePlay();
    }
 } //returns gamePlay
-const vertToggle = (event) => {
-   console.log(`vert was`, vertical);
+const vertToggle = () => {
    vertical = !vertical
-   console.log(`vert now`, vertical);
 }
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
@@ -107,6 +105,64 @@ const userShot = (event) => {
 }
 
 // === Henderler Dependencies ===
+const renderBoatHover = (event) => {
+   //console.log(`renderBoatHover firing`);
+   $(event.currentTarget).addClass('bg')
+   let row = getRow(event);
+   let col = getCol(event);
+   let cnt = availBoats[0][1]-1
+   //console.log(row, col, cnt);
+   if (!vertical) {
+      let $div = $(event.currentTarget).siblings()
+      for (let i = 0; i < $div.length; i++) {
+         let id = $($div[i]).attr('id')
+         //console.log(id);
+         if ( id > col && cnt > 0 ) {
+            $($div[i]).addClass('bg')
+            cnt--
+         }
+      }
+   } else {
+      let $col = $('.heroSq').filter(`#${col}`)
+      for (let i = 0; i < $col.length; i++) {
+         let tmpRow = $($col[i]).attr('class').split(' ')[1]
+         //console.log(id);
+         if ( tmpRow > row && cnt > 0 ) {
+            $($col[i]).addClass('bg')
+            cnt--
+         }
+      }
+   }
+}
+const deRenderBoatHover = (event) => {
+   //console.log(`DErenderBoatHover firing`);
+   $(event.currentTarget).removeClass('bg')
+   let row = getRow(event);
+   let col = getCol(event);
+   let cnt = availBoats[0][1]-1
+   //console.log(row, col, cnt);
+   if (!vertical) {
+      let $div = $(event.currentTarget).siblings()
+      for (let i = 0; i < $div.length; i++) {
+         let id = $($div[i]).attr('id')
+         //console.log(id);
+         if ( id > col && cnt > 0 ) {
+            $($div[i]).removeClass('bg')
+            cnt--
+         }
+      }
+   } else {
+      let $col = $('.heroSq').filter(`#${col}`)
+      for (let i = 0; i < $col.length; i++) {
+         let tmpRow = $($col[i]).attr('class').split(' ')[1]
+         //console.log(id);
+         if ( tmpRow > row && cnt > 0 ) {
+            $($col[i]).removeClass('bg')
+            cnt--
+         }
+      }
+   }
+}
 const getRow = (event) => {
    return Number($(event.currentTarget).attr('class').split(' ')[1]);
 }

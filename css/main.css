@@ -130,6 +130,14 @@ body {
    background-color: #81F7FF;
 }
 
+.enemySq:hover {
+   background-color: pink;
+}
+
+.bg {
+   background-color: green;
+}
+
 .bb {
    background-color: blue;
 }
