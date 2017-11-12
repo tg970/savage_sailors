@@ -121,7 +121,10 @@ class Boat {
          }
       }
       $('.message').text(`${this.name} Sunk!`);
+      console.log(`${this.name} Sunk!`);
+      //console.log(this);
       opp.splice(opp.indexOf(this),1);
+      //console.log(opp);
    }
 }
 
@@ -177,11 +180,12 @@ const placeEnemyBoats = () => {
       let col = Math.floor(Math.random()*((size-newBoatLength)+1))
       //console.log('new go', row, col);
       if (checkConflicts(row, col, `.enemySq`, newBoatLength)) {
+
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
-         //console.log(enemyBoats[0].name);
+         console.log(enemyBoats[0].name, enemyBoats[0].position);
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
-         enemyBoats[0].colorIn(row, col);
+         //enemyBoats[0].colorIn(row, col);
          //console.log(enemyBoats);
       }
    }
@@ -222,7 +226,7 @@ const computerShot = () => {
    let randIndex = Math.floor(Math.random()*compShotOpt.length)
    let target = compShotOpt[randIndex]
    compShotOpt.splice(randIndex, 1)
-   console.log(target);
+   //console.log(target);
    let shot = checkHit(target[0], target[1], userBoats);
    if (shot.t) {
       $('.message').text(`That's a HIT!!!!`)
@@ -234,6 +238,7 @@ const computerShot = () => {
    }
    userTurn = !userTurn
 }
+
 const checkHit = (row, col, otherBoats) => {
    for (let boat of otherBoats) {
       for (let post of boat.position) {
@@ -245,17 +250,26 @@ const checkHit = (row, col, otherBoats) => {
    }
    return false
 }
+
 const gamePlay = () => {
-   console.log('Game Play', userBoats, enemyBoats);
-   if ( userBoats.length > 0 && userBoats.length > 0 ) {
+   //console.log('Game Play:', userBoats, enemyBoats);
+   if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       computerShot();
+   }
+   if ( userBoats.length == 0 ) {
+      $('.message').text(`Game over...  :(`);
+   }
+   if ( enemyBoats.length == 0 ) {
+      $('.message').text(`YOU Won!!!`);
    }
    //console.log('userTurn now', userTurn);
 }
+
 const startGame = () => {
    $('.message').text("Place your Boats!")
    buildBoard(`hero`, size, boatPlacement);
 }
+
 // === WINDOW ON LOAD/PAGE READY ===
 $(() => {
 
