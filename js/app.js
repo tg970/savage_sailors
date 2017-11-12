@@ -8,7 +8,7 @@ let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Ten
 let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
-let vertical = true;
+let vertical = false;
 
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
@@ -25,6 +25,13 @@ const buildBoard = (user, size, func) => {
          $container.append($sq)
       };
    $(`.${user}`).append($container)
+   }
+   if (user == `hero`) {
+      $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
+      $('.temp').removeClass(`hide`)
+   } else {
+      $('.vertBtn').addClass(`hide`).off()
+      $('.temp').addClass(`hide`)
    }
    //$(`.messageContainer`)
 }
@@ -69,6 +76,11 @@ const boatPlacement = (event) => {
       return gamePlay();
    }
 } //returns gamePlay
+const vertToggle = (event) => {
+   console.log(`vert was`, vertical);
+   vertical = !vertical
+   console.log(`vert now`, vertical);
+}
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
    for (let i = 0; i < $heroSqEmpty.length; i++) {
@@ -177,10 +189,8 @@ class HeroBoat extends Boat {
       }
    }
    colorInVert(row, col) {
-      console.log(`colorInVert running`, row, col);
       let $col = $('.heroSq').filter(`#${col}`)
       let cnt = this.length-1
-      console.log($col, cnt);
       for (let i = 0; i < $col.length; i++) {
          let tmpRow = $($col[i]).attr('class').split(' ')[1]
          //console.log(id);

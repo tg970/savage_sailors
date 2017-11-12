@@ -71,6 +71,27 @@ body {
    /*width: 850px;*/
 }
 
+.vertBtn {
+   width: 80px;
+   line-height: 40px;
+   text-align: center;
+   overflow-wrap: normal;
+   font-size: 14px;
+   font-family: 'Lato', sans-serif;
+   border: 1px solid silver;
+   border-radius: 10px;
+   background-color: green;
+   opacity: .95;
+}
+
+.temp {
+   width: 80px;
+}
+
+.hide {
+   display: none;
+}
+
 .hero, .enemy{
    height: 400px;
    width: 400px;
