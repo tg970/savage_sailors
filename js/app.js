@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -38,7 +38,7 @@ const buildBoard = (user, size, func) => {
    if (user == `hero`) {
       $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
       $('.temp').removeClass(`hide`)
-   } else {
+   } else if (!devMode) {
       $('.vertBtn').addClass(`hide`).off()
       $('.temp').addClass(`hide`)
    }
@@ -321,9 +321,9 @@ const placeEnemyBoats = () => {
       let newBoatLength = availEnemy[0][1]
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-newBoatLength)+1))
-      //console.log('new go', row, col);
+      if ( Math.random() > .5 ) {vertToggle()}
+      console.log('new go', row, col, vertical);
       if (checkConflicts(row, col, `.enemySq`, newBoatLength)) {
-
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
          console.log(enemyBoats[0].name, enemyBoats[0].position);
          availEnemy.shift();
@@ -334,13 +334,15 @@ const placeEnemyBoats = () => {
    }
    checkInventory();
 }
+
 const checkInventory = () => {
    let inven = $(`.enemySq`).filter(`.em`);
    console.log(inven);
    if (inven.length != enemySqSB) {
-      console.log(`enemy placing issue`);
+      alert(`enemy placing issue`);
    };
 }
+
 const checkConflicts = (row, col, board, newBoatLength) => {
    if (vertical) {
       return checkConflictsVert(row, col, board, newBoatLength)
@@ -354,12 +356,14 @@ const checkConflicts = (row, col, board, newBoatLength) => {
          let tmpRow = $($row[i]).attr('class').split(' ')[1]
          //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
          if ( newBoatLength > 0 && tmpCol >= col ) {
-            if ($($row[i]).hasClass('bb')) {
+            if ($($row[i]).hasClass('bb') || $($row[i]).hasClass('em')) {
+               console.log(`break row`);
                return false
             } else {
                newBoatLength--
             }
             if (newBoatLength == 0) {
+               console.log(`gow row`);
                return true
             }
          }
@@ -377,13 +381,14 @@ const checkConflictsVert = (row, col, board, newBoatLength) => {
          //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
          if ( newBoatLength > 0 && tmpRow >= row) {
             if ($($col[i]).hasClass('bb') || $($col[i]).hasClass('em')) {
-               console.log('break');
+               console.log('break', `vert`);
                return false
             } else {
                newBoatLength--
             }
             //console.log('new boat length', newBoatLength);
             if (newBoatLength == 0) {
+               console.log(`go vert`);
                return true
             }
          }
@@ -433,7 +438,8 @@ const checkHit = (row, col, otherBoats) => {
 const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
-      setTimeout(computerShot, 3000);
+      if (devMode) {computerShot()}
+      else {setTimeout(computerShot, 3000)};
    }
    if ( userBoats.length == 0 ) {
       $('.message').text(`Game over...  :(`);
