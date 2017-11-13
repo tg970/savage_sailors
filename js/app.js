@@ -15,27 +15,18 @@ const imgAddress = {
    'cat': {
       1:`./img/cat_damg_1.png`,
       2:`./img/cat_damg_2.png`,
-      3:`./img/cat_sunk.png`
+      3:`./img/cat_damg_3.png`
    },
    'fish': {
       1:`./img/fishing_damg_1.png`,
-      2:`./img/fishing_sunk.png`
+      2:`./img/fishing_damg_2.png`
    },
    'dingy': {
-      1:`./img/tender_sunk.png`,
+      1:`./img/tender_damg_1.png`,
    },
-   'traw': {
-      1:`some image of trawler with 1 damage`,
-      2:`some image of trawler with 2 damage`,
-      3:`some image of trawler sunk`
-   },
-   'toon': {
-      1:`image of an ol busted pontoon half sunk`,
-      2:`image of pontoon sunk`
-   },
-   'skif': {
-      1:`skiff blown to smitheriens`
-   }
+   'traw': `some image of trawler sunk`,
+   'toon': `image of pontoon sunk`,
+   'skif': `skiff blown to smitheriens`
 }
 
 // === BOARD RENDER ===
@@ -274,20 +265,30 @@ class Boat {
       //console.log(opp);
    }
    renderDamage() {
-      let imgKey = this.imgId
+      let imgId = this.imgId
       let dmgCnt = 0
       for (let i = 0; i < this.length; i++) {
          if (this.hit[i]) {
             dmgCnt++
          }
       }
-      console.log(imgAddress[imgKey][dmgCnt])
+      if (this.userBoat) {
+         $(`#${imgId}`).attr('src',`${imgAddress[imgId][dmgCnt]}`)
+         if (dmgCnt === this.length) {
+            $(`#${imgId}`).css('background',`rgba(255,34,35,0.5)`)
+         }
+      } else {
+         if (dmgCnt === this.length) {
+            console.log(imgAddress[imgId])
+         }
+      }
    }
 }
 
 class HeroBoat extends Boat {
    constructor(name, length, imgId) {
-      super(name, length, imgId)
+      super(name, length, imgId),
+      this.userBoat = true
    }
    colorIn(event, row, col) {
       $(event).addClass('bb')
@@ -327,6 +328,7 @@ class HeroBoat extends Boat {
 class EnemyBoat extends Boat {
    constructor(name, length, imgId) {
       super(name, length, imgId)
+      this.userBoat = false
    }
    colorIn(row, col) {
       let $enemySq = $(`.enemySq`)

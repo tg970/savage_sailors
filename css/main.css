@@ -245,6 +245,7 @@ body {
 #cat {
    max-height: 100%;
    max-width: 50%;
+   border-radius: 20px;
 }
 #cat:after {
     content: '';
@@ -261,7 +262,7 @@ body {
    display: flex;
    flex-direction: column;
    align-items: center;
-   justify-content: center;
+   justify-content: space-around;
 }
 #dingy {
    width: 100%;
