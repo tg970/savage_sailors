@@ -267,10 +267,12 @@ body {
 #dingy {
    width: 100%;
    max-width: 125px;
+   border-radius: 10px;
 }
 #fish {
    width: 100%;
    max-width: 150px;
+   border-radius: 10px;
 }
 .notplaced {
    opacity: .25;

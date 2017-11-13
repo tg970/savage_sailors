@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = true
+const devMode = false
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -15,18 +15,30 @@ const imgAddress = {
    'cat': {
       1:`./img/cat_damg_1.png`,
       2:`./img/cat_damg_2.png`,
-      3:`./img/cat_damg_3.png`
+      3:`./img/cat_damg_3.png`,
+      reset: `./img/cat.png`
    },
    'fish': {
       1:`./img/fishing_damg_1.png`,
-      2:`./img/fishing_damg_2.png`
+      2:`./img/fishing_damg_2.png`,
+      reset: `./img/fishing.png`
    },
    'dingy': {
       1:`./img/tender_damg_1.png`,
+      reset: `./img/tender.png`
    },
-   'traw': `some image of trawler sunk`,
-   'toon': `image of pontoon sunk`,
-   'skif': `skiff blown to smitheriens`
+   'traw': {
+      sunk:`some image of trawler sunk`,
+      reset:``
+   },
+   'toon': {
+      sunk:`image of pontoon sunk`,
+      reset:`org img toon`
+   },
+   'skif': {
+      sunk:`skiff blown to smitheriens`,
+      reset: `org img skif`
+   }
 }
 
 // === BOARD RENDER ===
@@ -476,6 +488,7 @@ const computerShot = () => {
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss`)
    }
    userTurn = !userTurn
+   checkGameOver();
 }
 
 const checkHit = (row, col, otherBoats) => {
@@ -490,6 +503,17 @@ const checkHit = (row, col, otherBoats) => {
    return false
 }
 
+const checkGameOver = () => {
+   if ( userBoats.length == 0 ) {
+      $('.message').text(`Game over...  :(`);
+      askReset();
+   }
+   if ( enemyBoats.length == 0 ) {
+      $('.message').text(`You Won!!!`);
+      askReset();
+   }
+}
+
 const askReset = () => {
    $('.vert').removeClass(`hide`)
    $('.reset').removeClass(`hide`)
@@ -500,6 +524,8 @@ const resetBoard = () => {
    let imgArr = ['cat', 'fish', 'dingy']
    for (let img of imgArr) {
       $(`#${img}`).addClass(`notplaced`);
+      $(`#${img}`).attr(`src`,`${imgAddress[img].reset}`)
+      $(`#${img}`).css(`background`,``)
    }
    $(`.message`).empty()
    $(`.hero`).empty()
@@ -520,16 +546,9 @@ const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       if (devMode) {computerShot()}
-      else {setTimeout(computerShot, 3000)};
+      else {setTimeout(computerShot, 2000)};
    }
-   if ( userBoats.length == 0 ) {
-      $('.message').text(`Game over...  :(`);
-      askReset();
-   }
-   if ( enemyBoats.length == 0 ) {
-      $('.message').text(`You Won!!!`);
-      askReset();
-   }
+   checkGameOver();
    //console.log('userTurn now', userTurn);
 }
 
