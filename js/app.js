@@ -488,7 +488,7 @@ const startGame = () => {
    $('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
    if (devMode) {
-      $('*').css(`border`,`.25px solid green`)
+      $('*').css(`border`,`1px solid green`)
       $('.resetBtn').on('click',resetBoard)
       buildBoard(`enemy`, size, userShot);
       placeEnemyBoats();

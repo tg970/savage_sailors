@@ -1,7 +1,3 @@
-* {
-   /*border: .25px solid green*/
-}
-
 /*font-family: 'Finger Paint', cursive;
 font-family: 'Lato', sans-serif;*/
 
@@ -16,7 +12,7 @@ body {
    background-color: #085368;
 }
 
-/* === NAV & MESSAGE SECTION ELEMENTS === */
+/* ================== NAV & MESSAGE SECTION ELEMENTS =========== */
 .navi {
    display: flex;
    flex-direction: row;
@@ -68,7 +64,7 @@ body {
       -2px -2px 4px #FEFEFE;
 }
 
-/* === BOARD SECTION === */
+/* ======================== BOARD SECTION ======================= */
 .container {
    display: flex;
    justify-content: space-around;
@@ -96,9 +92,9 @@ body {
    font-size: 14px;
    font-family: 'Lato', sans-serif;
    border: 1px solid silver;
-   border-radius: 10px;
+   border-radius: 15px;
    background-color: green;
-   opacity: .95;
+   opacity: .85;
 }
 
 .reset {
@@ -113,15 +109,16 @@ body {
    font-size: 14px;
    font-family: 'Finger Paint', cursive;
    border: 1px solid silver;
-   border-radius: 10px;
+   border-radius: 15px;
    background-color: green;
-   opacity: .95;
+   opacity: .85;
 }
 
 .hide {
    display: none;
 }
 
+/* ======================= SQUARES SECTION ===================== */
 .hero, .enemy {
    height: 400px;
    width: 400px;
@@ -141,10 +138,11 @@ body {
 .heroSq, .enemySq {
    width: 95px;
    height: 95px;
-   border: .25px solid black;
+   border: 1px solid black;
    /*opacity: .75;*/
    transform: scale(1);
    transform: rotate(0deg);
+   border-radius: 5px;
    /*animation-name: zip-in;
    animation-duration: 1s;
    animation-iteration-count: 1;*/
@@ -172,7 +170,7 @@ body {
    background-color: blue;
 }
 
-/* === GAME BOARD ANAIMATIONS === */
+/* ==================== GAME BOARD ANAIMATIONS ======================= */
 
 .hit {
    background-color: red;
@@ -183,7 +181,7 @@ body {
    opacity: .25;
 }
 
-/* === BOTTOM INFO SECTION === */
+/* ===================== BOTTOM INFO SECTION ========================== */
 .info {
    height: 250px;
    display: flex;
@@ -211,6 +209,7 @@ body {
    color: #F9EFE5;
    text-shadow: -5px 5px 5px black;
 }
+
 .boatsHeader {
    font-family: 'Lato', sans-serif;
    font-size: 18px;
@@ -229,6 +228,8 @@ body {
    flex-direction: row;
    justify-content: space-around;
 }
+
+/* =================== BOTTOM INFO SUB SECTIONS ====================== */
 
 .boats, .enemyboats, .coconutWrapper {
    width: 33%;
@@ -258,7 +259,6 @@ body {
     bottom: 0;
 }
 
-
 .boats_sub {
    height: 100%;
    display: flex;
@@ -271,6 +271,7 @@ body {
    width: 100%;
    max-width: 125px;
 }
+
 #fish {
    width: 100%;
    max-width: 150px;
