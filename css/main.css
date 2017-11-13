@@ -30,6 +30,13 @@ body {
    font-weight: bold;
    align-self: flex-start;
    width: 80%;
+   text-shadow:
+            -2px 2px 1px black,
+            -5px 5px 10px white,
+            0px 4px 5px white,
+            4px 4px 5px white,
+            3px -1px 5px white;
+   color: #085368;
 }
 
 .menuImg {
@@ -165,16 +172,31 @@ body {
 .infoHeader {
    height: 25px;
    width: 95%;
-   background-color: yellow;
+   /*background-color: yellow;*/
    display: flex;
    flex-direction: row;
    justify-content: space-around;
 }
 
 .boatsHeader, .enemyHeader, .coconutHeader {
-   background-color: green;
+   /*background-color: green;*/
    width: 33%;
    height: inherit;
+   text-align: center;
+   vertical-align: bottom;
+   font-size: 15px;
+   color: #ffffff;
+   text-shadow: -5px 5px 5px black;
+}
+.boatsHeader {
+   font-family: 'Lato', sans-serif;
+   font-size: 18px;
+   padding-top: 3px;
+}
+
+.enemyHeader {
+   font-family: 'Finger Paint', cursive;
+   padding-top: 5px;
 }
 
 .infoWrapper {
@@ -185,12 +207,12 @@ body {
    justify-content: space-around;
 }
 
-.boats, .enemyboats, .coconut {
+.boats, .enemyboats, .coconutWrapper {
    width: 33%;
    height: inherit;
 }
 
-.boats {
+.boats, .coconutWrapper {
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -201,6 +223,18 @@ body {
    max-height: 100%;
    max-width: 50%;
 }
+
+#cat:after {
+    content: '';
+    position: absolute;
+    z-index: -1; /* hide shadow behind image */
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    width: 70%;
+    left: 15%; /* one half of the remaining 30% */
+    max-height: 100%;
+    bottom: 0;
+}
+
 
 .boats_sub {
    height: 100%;
@@ -221,6 +255,10 @@ body {
 
 .notplaced {
    opacity: .25;
+}
+
+#cocoTree {
+   transform: scale(.65) translate(60px, -25px);
 }
 
 @keyframes zip-in {
