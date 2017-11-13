@@ -65,7 +65,7 @@ const boatPlacement = (event) => {
          userBoats[0].placedMessage(availBoats[0][0])
       }
       //console.log('boat built');
-      console.log(userBoats);
+      //console.log(userBoats);
    } else {
       $('.message').text(`${newBoatName} won't fit there, try again...`)
    }
@@ -277,7 +277,7 @@ class EnemyBoat extends Boat {
          //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
          if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
             //console.log('yep');
-            $($enemySq[i]).addClass('bb')
+            $($enemySq[i]).addClass('em')
             cnt--
          }
       }
@@ -296,7 +296,7 @@ const placeEnemyBoats = () => {
          console.log(enemyBoats[0].name, enemyBoats[0].position);
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
-         //enemyBoats[0].colorIn(row, col);
+         enemyBoats[0].colorIn(row, col);
          //console.log(enemyBoats);
       }
    }
@@ -337,8 +337,8 @@ const checkConflictsVert = (row, col, board, newBoatLength) => {
          let tmpRow = $($col[i]).attr('class').split(' ')[1]
          //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
          if ( newBoatLength > 0 && tmpRow >= row) {
-            if ($($col[i]).hasClass('bb')) {
-               //console.log('break');
+            if ($($col[i]).hasClass('bb') || $($col[i]).hasClass('em')) {
+               console.log('break');
                return false
             } else {
                newBoatLength--
