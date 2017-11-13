@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -36,11 +36,16 @@ const buildBoard = (user, size, func) => {
    $(`.${user}`).append($container)
    }
    if (user == `hero`) {
+      $(`.vert`).removeClass(`hide`)
       $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
-      $('.temp').removeClass(`hide`)
+      $('.reset').removeClass(`hide`)
+      if (devMode) {
+         $('.resetBtn').removeClass(`hide`)
+      }
    } else if (!devMode) {
+      $(`.vert`).addClass(`hide`)
       $('.vertBtn').addClass(`hide`).off()
-      $('.temp').addClass(`hide`)
+      $('.reset').addClass(`hide`)
    }
    //$(`.messageContainer`)
 }
@@ -435,6 +440,28 @@ const checkHit = (row, col, otherBoats) => {
    return false
 }
 
+const askReset = () => {
+   $('.vert').removeClass(`hide`)
+   $('.reset').removeClass(`hide`)
+   $('.resetBtn').removeClass(`hide`).on('click',resetBoard)
+}
+
+const resetBoard = () => {
+   $(`.message`).empty()
+   $(`.hero`).empty()
+   $(`.enemy`).empty()
+   $('.vert').addClass(`hide`)
+   $('.reset').addClass(`hide`)
+   $('.resetBtn').addClass(`hide`)
+   userBoats = [];
+   enemyBoats = [];
+   availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Tender', 1, `dingy`]];
+   availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
+   userTurn = false;
+   compShotOpt = [];
+   return startGame();
+}
+
 const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
@@ -443,9 +470,11 @@ const gamePlay = () => {
    }
    if ( userBoats.length == 0 ) {
       $('.message').text(`Game over...  :(`);
+      askReset();
    }
    if ( enemyBoats.length == 0 ) {
-      $('.message').text(`YOU Won!!!`);
+      $('.message').text(`You Won!!!`);
+      askReset();
    }
    //console.log('userTurn now', userTurn);
 }

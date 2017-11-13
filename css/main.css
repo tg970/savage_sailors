@@ -32,10 +32,10 @@ body {
    width: 80%;
    text-shadow:
             -2px 2px 1px black,
-            -5px 5px 10px white,
-            0px 4px 5px white,
-            4px 4px 5px white,
-            3px -1px 5px white;
+            -5px 5px 10px #FEFEFE,
+            0px 4px 5px #FEFEFE,
+            4px 4px 5px #FEFEFE,
+            3px -1px 5px #FEFEFE;
    color: #085368;
 }
 
@@ -60,6 +60,12 @@ body {
    font-size: 18px;
    font-family: 'Lato', sans-serif;
    margin-bottom: 10px;
+   color: #0B627C;
+   text-shadow:
+      -1px 1px 1px black,
+      -4px 4px 4px #FEFEFE,
+      4px 4px 4px #FEFEFE,
+      -2px -2px 4px #FEFEFE;
 }
 
 /* === BOARD SECTION === */
@@ -78,6 +84,10 @@ body {
    /*width: 850px;*/
 }
 
+.vert {
+   width: 80px;
+}
+
 .vertBtn {
    width: 80px;
    line-height: 40px;
@@ -91,8 +101,21 @@ body {
    opacity: .95;
 }
 
-.temp {
+.reset {
    width: 80px;
+}
+
+.resetBtn {
+   width: 80px;
+   line-height: 40px;
+   text-align: center;
+   overflow-wrap: normal;
+   font-size: 14px;
+   font-family: 'Finger Paint', cursive;
+   border: 1px solid silver;
+   border-radius: 10px;
+   background-color: green;
+   opacity: .95;
 }
 
 .hide {
@@ -134,7 +157,7 @@ body {
 }
 
 .enemySq {
-   background-color: #81F7FF;
+   background-color: #FEFEFE;
 }
 
 .enemySq:hover {
@@ -185,7 +208,7 @@ body {
    text-align: center;
    vertical-align: bottom;
    font-size: 15px;
-   color: #ffffff;
+   color: #F9EFE5;
    text-shadow: -5px 5px 5px black;
 }
 .boatsHeader {
