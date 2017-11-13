@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = true
+const devMode = false
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -26,7 +26,11 @@ const buildBoard = (user, size, func) => {
          }
          let delay = getDelay(i, j)
          $sq.addClass(`hidden`)
-         setTimeout(removeHidden,100)
+         if (devMode) {
+            setTimeout(removeHidden,150)
+         } else {
+            setTimeout(removeHidden,delay)
+         }
          $container.append($sq)
       };
    $(`.${user}`).append($container)
@@ -194,14 +198,14 @@ class Boat {
       this.imgId = imgId
    }
    posBuild(row, col) {
-      if (!vertical) {
+      if (vertical) {
          for (let i = 0; i < this.length; i++) {
-            this.position[i] = [row, col + i]
+            this.position[i] = [row + i, col]
             this.hit.push(false)
          }
       } else {
          for (let i = 0; i < this.length; i++) {
-            this.position[i] = [row + i, col]
+            this.position[i] = [row, col + i]
             this.hit.push(false)
          }
       }
@@ -235,7 +239,9 @@ class HeroBoat extends Boat {
    colorIn(event, row, col) {
       $(event).addClass('bb')
       $(event).off()
-      if (!vertical) {
+      if (vertical) {
+         this.colorInVert(row, col)
+      } else {
          let $div = $(event).siblings()
          let cnt = this.length-1
          for (let i = 0; i < $div.length; i++) {
@@ -246,8 +252,6 @@ class HeroBoat extends Boat {
                cnt--
             }
          }
-      } else {
-         this.colorInVert(row, col)
       }
    }
    colorInVert(row, col) {
@@ -274,15 +278,37 @@ class EnemyBoat extends Boat {
    colorIn(row, col) {
       let $enemySq = $(`.enemySq`)
       //console.log($enemySq);
+      if (vertical) {
+         this.colorInVert(row, col)
+      } else {
+         let cnt = this.length
+         for (let i = 0; i < $enemySq.length; i++) {
+            let tmpCol = $($enemySq[i]).attr('id')
+            let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
+            //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
+            if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
+               //console.log('yep');
+               $($enemySq[i]).addClass('em')
+               if (devMode) {
+                  $($enemySq[i]).addClass('bb')
+               }
+               cnt--
+            }
+         }
+      }
+   }
+   colorInVert(row, col) {
+      //console.log(`enemy colorInVert`);
+      let $col = $('.enemySq').filter(`#${col}`)
       let cnt = this.length
-      for (let i = 0; i < $enemySq.length; i++) {
-         let tmpCol = $($enemySq[i]).attr('id')
-         let tmpRow = $($enemySq[i]).attr('class').split(' ')[1]
-         //console.log($enemySq, 'cnt', cnt, 'tmpcol', tmpCol, classes);
-         if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
-            //console.log('yep');
-            $($enemySq[i]).addClass('em')
-            $($enemySq[i]).addClass('bb')
+      //console.log($col);
+      for (let i = 0; i < $col.length; i++) {
+         let tmpRow = $($col[i]).attr('class').split(' ')[1]
+         if ( tmpRow >= row && cnt > 0 ) {
+            $($col[i]).addClass('em')
+            if (devMode) {
+               $($col[i]).addClass('bb')
+            }
             cnt--
          }
       }
@@ -310,8 +336,9 @@ const placeEnemyBoats = () => {
 }
 const checkInventory = () => {
    let inven = $(`.enemySq`).filter(`.em`);
+   console.log(inven);
    if (inven.length != enemySqSB) {
-      console.log(`enemy placing issue`, inven);
+      console.log(`enemy placing issue`);
    };
 }
 const checkConflicts = (row, col, board, newBoatLength) => {
