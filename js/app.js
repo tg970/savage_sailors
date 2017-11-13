@@ -327,7 +327,7 @@ const placeEnemyBoats = () => {
       let row = Math.floor(Math.random()*size)
       let col = Math.floor(Math.random()*((size-newBoatLength)+1))
       if ( Math.random() > .5 ) {vertToggle()}
-      console.log('new go', row, col, vertical);
+      //console.log('new go', row, col, vertical);
       if (checkConflicts(row, col, `.enemySq`, newBoatLength)) {
          enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
          console.log(enemyBoats[0].name, enemyBoats[0].position);
@@ -362,13 +362,13 @@ const checkConflicts = (row, col, board, newBoatLength) => {
          //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
          if ( newBoatLength > 0 && tmpCol >= col ) {
             if ($($row[i]).hasClass('bb') || $($row[i]).hasClass('em')) {
-               console.log(`break row`);
+               //console.log(`break row`);
                return false
             } else {
                newBoatLength--
             }
             if (newBoatLength == 0) {
-               console.log(`gow row`);
+               //console.log(`gow row`);
                return true
             }
          }
@@ -386,14 +386,14 @@ const checkConflictsVert = (row, col, board, newBoatLength) => {
          //console.log('tmpRow', tmpRow, 'tmpcol', tmpCol);
          if ( newBoatLength > 0 && tmpRow >= row) {
             if ($($col[i]).hasClass('bb') || $($col[i]).hasClass('em')) {
-               console.log('break', `vert`);
+               //console.log('break', `vert`);
                return false
             } else {
                newBoatLength--
             }
             //console.log('new boat length', newBoatLength);
             if (newBoatLength == 0) {
-               console.log(`go vert`);
+               //console.log(`go vert`);
                return true
             }
          }
@@ -447,6 +447,10 @@ const askReset = () => {
 }
 
 const resetBoard = () => {
+   let imgArr = ['cat', 'fish', 'dingy']
+   for (let img of imgArr) {
+      $(`#${img}`).addClass(`notplaced`);
+   }
    $(`.message`).empty()
    $(`.hero`).empty()
    $(`.enemy`).empty()
@@ -485,6 +489,7 @@ const startGame = () => {
    buildBoard(`hero`, size, boatPlacement);
    if (devMode) {
       $('*').css(`border`,`.25px solid green`)
+      $('.resetBtn').on('click',resetBoard)
       buildBoard(`enemy`, size, userShot);
       placeEnemyBoats();
    }
