@@ -1,4 +1,5 @@
 //console.log($);
+const devMode = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -8,7 +9,8 @@ let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Ten
 let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
-let vertical = false;
+let vertical = true;
+let enemySqSB = 6;
 
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
@@ -24,7 +26,7 @@ const buildBoard = (user, size, func) => {
          }
          let delay = getDelay(i, j)
          $sq.addClass(`hidden`)
-         setTimeout(removeHidden,delay)
+         setTimeout(removeHidden,100)
          $container.append($sq)
       };
    $(`.${user}`).append($container)
@@ -71,8 +73,10 @@ const boatPlacement = (event) => {
    }
    if (availBoats.length == 0) {
       killBoatPlaceClicks();
-      buildBoard(`enemy`, size, userShot);
-      placeEnemyBoats();
+      if (!devMode) {
+         buildBoard(`enemy`, size, userShot);
+         placeEnemyBoats();
+      }
       genCompShotOpt();
       $('.message').text(`Alright, Let's Play!`);
       return gamePlay();
@@ -278,6 +282,7 @@ class EnemyBoat extends Boat {
          if ( cnt > 0 && tmpCol >= col && tmpRow == row) {
             //console.log('yep');
             $($enemySq[i]).addClass('em')
+            $($enemySq[i]).addClass('bb')
             cnt--
          }
       }
@@ -285,6 +290,7 @@ class EnemyBoat extends Boat {
 }
 
 const placeEnemyBoats = () => {
+   // vertical = false
    while (availEnemy.length) {
       let newBoatLength = availEnemy[0][1]
       let row = Math.floor(Math.random()*size)
@@ -300,8 +306,14 @@ const placeEnemyBoats = () => {
          //console.log(enemyBoats);
       }
    }
+   checkInventory();
 }
-
+const checkInventory = () => {
+   let inven = $(`.enemySq`).filter(`.em`);
+   if (inven.length != enemySqSB) {
+      console.log(`enemy placing issue`, inven);
+   };
+}
 const checkConflicts = (row, col, board, newBoatLength) => {
    if (vertical) {
       return checkConflictsVert(row, col, board, newBoatLength)
@@ -409,6 +421,10 @@ const startGame = () => {
    $('.message').text("Place your Boats!")
    $('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
+   if (devMode) {
+      buildBoard(`enemy`, size, userShot);
+      placeEnemyBoats();
+   }
 }
 
 // === WINDOW ON LOAD/PAGE READY ===
