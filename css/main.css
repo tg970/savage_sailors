@@ -92,7 +92,7 @@ body {
    display: none;
 }
 
-.hero, .enemy{
+.hero, .enemy {
    height: 400px;
    width: 400px;
    display: flex;
@@ -155,13 +155,37 @@ body {
 
 /* === BOTTOM INFO SECTION === */
 .info {
+   height: 250px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.infoHeader {
+   height: 25px;
+   width: 95%;
+   background-color: yellow;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+}
+
+.boatsHeader, .enemyHeader, .coconutHeader {
+   background-color: green;
+   width: 33%;
+   height: inherit;
+}
+
+.infoWrapper {
+   width: 95%;
    height: 200px;
    display: flex;
    flex-direction: row;
-   justify-content: center;
+   justify-content: space-around;
 }
 
-.boats, .Ammo, .coconut {
+.boats, .enemyboats, .coconut {
    width: 33%;
    height: inherit;
 }
@@ -169,6 +193,8 @@ body {
 .boats {
    display: flex;
    flex-direction: row;
+   align-items: center;
+   justify-content: center;
 }
 
 #cat {
@@ -176,9 +202,21 @@ body {
    max-width: 50%;
 }
 
-#fish, #dingy {
-   height: 50%;
-   width: 50%;
+.boats_sub {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+#dingy {
+   width: 100%;
+   max-width: 125px;
+}
+#fish {
+   width: 100%;
+   max-width: 150px;
 }
 
 .notplaced {
