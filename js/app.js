@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = true
+const devMode = false
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -57,6 +57,12 @@ const removeHidden = () => {
 }
 
 // === CLICK HANDERLERS ===
+const hideGo_n_start = (event) => {
+   console.log(`hide go and start!`);
+   $(`.goWrapper`).addClass(`hide`);
+   $(`.board`).removeClass(`hide`)
+   startGame();
+}
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
    let newBoatName = availBoats[0][0]
@@ -495,9 +501,17 @@ const startGame = () => {
    }
 }
 
+const landing = () => {
+   if (devMode) {
+      hideGo_n_start();
+   } else {
+      $('.goBtn').on('click',hideGo_n_start);
+   }
+}
+
 // === WINDOW ON LOAD/PAGE READY ===
 $(() => {
 
-startGame();
+landing();
 
 })

@@ -68,7 +68,39 @@ body {
 .container {
    display: flex;
    justify-content: space-around;
-   /*height: 450px;*/
+   height: 450px;
+}
+
+.goWrapper {
+   height: 100%;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.goBtn {
+   height: 100px;
+   width: 175px;
+   background: #095268;
+   opacity: .85;
+   border: 3px solid #FEFEFE;
+   border-radius: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.goBtnText {
+   font-family: 'Finger Paint', cursive;
+   font-size: 50px;
+   text-shadow:
+      -2px 2px 1px black,
+      -5px 5px 10px #FEFEFE,
+      0px 4px 5px #FEFEFE,
+      4px 4px 5px #FEFEFE,
+      3px -1px 5px #FEFEFE,
+      -3px -3px 5px #FEFEFE;
 }
 
 .board {
