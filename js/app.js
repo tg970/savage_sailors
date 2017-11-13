@@ -54,7 +54,9 @@ const boatPlacement = (event) => {
    let col = getCol(event);
    if (checkConflicts(row, col, `.heroSq`, newBoatLength)) {
       $(`.messageContainer`).removeClass(`start`)
-      $(`#${id}`).removeClass(`notplaced`)
+      // throw into rendering the boat info tiles
+         $(`#${id}`).removeClass(`notplaced`)
+      // ....
       userBoats.unshift(new HeroBoat (availBoats[0][0],availBoats[0][1],availBoats[0][2]));
       availBoats.shift();
       userBoats[0].posBuild(row, col);
