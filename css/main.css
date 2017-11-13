@@ -18,7 +18,6 @@ body {
    flex-direction: row;
    justify-content: space-between;
 }
-
 .logo {
    height: 15%;
    font-family: 'Finger Paint', cursive;
@@ -34,28 +33,24 @@ body {
             3px -1px 5px #FEFEFE;
    color: #085368;
 }
-
 .menuImg {
    /*margin-left: auto;*/
 }
-
 .messageContainer {
    height: 50px;
    display: flex;
    align-items: flex-end;
    justify-content: center;
 }
-
 .start {
    transform: translate( -200px, 0px);
 }
-
 .message {
    text-align: center;
    vertical-align: bottom;
    font-size: 18px;
    font-family: 'Lato', sans-serif;
-   margin-bottom: 10px;
+   /*margin-bottom: 10px;*/
    color: #0B627C;
    text-shadow:
       -1px 1px 1px black,
@@ -69,8 +64,8 @@ body {
    display: flex;
    justify-content: space-around;
    height: 450px;
+   overflow: auto;
 }
-
 .goWrapper {
    height: 100%;
    width: 100%;
@@ -78,7 +73,6 @@ body {
    justify-content: center;
    align-items: center;
 }
-
 .goBtn {
    height: 100px;
    width: 175px;
@@ -90,7 +84,6 @@ body {
    justify-content: center;
    align-items: center;
 }
-
 .goBtnText {
    font-family: 'Finger Paint', cursive;
    font-size: 50px;
@@ -102,7 +95,6 @@ body {
       3px -1px 5px #FEFEFE,
       -3px -3px 5px #FEFEFE;
 }
-
 .board {
    /*height: 400px;*/
    display: flex;
@@ -111,11 +103,9 @@ body {
    justify-content: center;
    /*width: 850px;*/
 }
-
 .vert {
    width: 80px;
 }
-
 .vertBtn {
    width: 80px;
    line-height: 40px;
@@ -128,11 +118,9 @@ body {
    background-color: green;
    opacity: .85;
 }
-
 .reset {
    width: 80px;
 }
-
 .resetBtn {
    width: 80px;
    line-height: 40px;
@@ -146,10 +134,6 @@ body {
    opacity: .85;
 }
 
-.hide {
-   display: none;
-}
-
 /* ======================= SQUARES SECTION ===================== */
 .hero, .enemy {
    height: 400px;
@@ -159,14 +143,12 @@ body {
    align-items: center;
    justify-content: center;
 }
-
 .heroRow, .enemyRow {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
    justify-content: flex-start;
 }
-
 .heroSq, .enemySq {
    width: 95px;
    height: 95px;
@@ -181,33 +163,26 @@ body {
    /*animation-delay: 2000ms;*/
    /*display: none;*/
 }
-
 .hidden {
    display: none;
 }
-
 .enemySq {
    background-color: #FEFEFE;
 }
-
 .enemySq:hover {
    background-color: pink;
 }
-
 .bg {
    background-color: green;
 }
-
 .bb {
    background-color: blue;
 }
 
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
-
 .hit {
    background-color: red;
 }
-
 .miss {
    background-color: yellow;
    opacity: .25;
@@ -221,7 +196,6 @@ body {
    justify-content: center;
    align-items: center;
 }
-
 .infoHeader {
    height: 25px;
    width: 95%;
@@ -230,7 +204,6 @@ body {
    flex-direction: row;
    justify-content: space-around;
 }
-
 .boatsHeader, .enemyHeader, .coconutHeader {
    /*background-color: green;*/
    width: 33%;
@@ -241,18 +214,17 @@ body {
    color: #F9EFE5;
    text-shadow: -5px 5px 5px black;
 }
-
 .boatsHeader {
    font-family: 'Lato', sans-serif;
    font-size: 18px;
    padding-top: 3px;
 }
-
 .enemyHeader {
    font-family: 'Finger Paint', cursive;
    padding-top: 5px;
 }
 
+/* =================== BOTTOM INFO SUB SECTIONS ====================== */
 .infoWrapper {
    width: 95%;
    height: 200px;
@@ -260,26 +232,20 @@ body {
    flex-direction: row;
    justify-content: space-around;
 }
-
-/* =================== BOTTOM INFO SUB SECTIONS ====================== */
-
 .boats, .enemyboats, .coconutWrapper {
    width: 33%;
    height: inherit;
 }
-
 .boats, .coconutWrapper {
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: center;
 }
-
 #cat {
    max-height: 100%;
    max-width: 50%;
 }
-
 #cat:after {
     content: '';
     position: absolute;
@@ -290,7 +256,6 @@ body {
     max-height: 100%;
     bottom: 0;
 }
-
 .boats_sub {
    height: 100%;
    display: flex;
@@ -298,25 +263,24 @@ body {
    align-items: center;
    justify-content: center;
 }
-
 #dingy {
    width: 100%;
    max-width: 125px;
 }
-
 #fish {
    width: 100%;
    max-width: 150px;
 }
-
 .notplaced {
    opacity: .25;
 }
-
 #cocoTree {
    transform: scale(.65) translate(60px, -25px);
 }
 
+.hide {
+   display: none;
+}
 @keyframes zip-in {
   0% {transform: rotate(360deg);}
   /*10% {transform: scale(1.45)}*/

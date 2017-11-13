@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -11,6 +11,32 @@ let userTurn = false;
 let compShotOpt = [];
 let vertical = true;
 let enemySqSB = 6;
+const imgAddress = {
+   'cat': {
+      1:`./img/cat_damg_1.png`,
+      2:`./img/cat_damg_2.png`,
+      3:`./img/cat_sunk.png`
+   },
+   'fish': {
+      1:`./img/fishing_damg_1.png`,
+      2:`./img/fishing_sunk.png`
+   },
+   'dingy': {
+      1:`./img/tender_sunk.png`,
+   },
+   'traw': {
+      1:`some image of trawler with 1 damage`,
+      2:`some image of trawler with 2 damage`,
+      3:`some image of trawler sunk`
+   },
+   'toon': {
+      1:`image of an ol busted pontoon half sunk`,
+      2:`image of pontoon sunk`
+   },
+   'skif': {
+      1:`skiff blown to smitheriens`
+   }
+}
 
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
@@ -60,7 +86,8 @@ const removeHidden = () => {
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
    $(`.goWrapper`).addClass(`hide`);
-   $(`.board`).removeClass(`hide`)
+   $(`.boatsHeader`).text(`Boats`);
+   $(`.board`).removeClass(`hide`);
    startGame();
 }
 const boatPlacement = (event) => {
@@ -87,14 +114,7 @@ const boatPlacement = (event) => {
       $('.message').text(`${newBoatName} won't fit there, try again...`)
    }
    if (availBoats.length == 0) {
-      killBoatPlaceClicks();
-      if (!devMode) {
-         buildBoard(`enemy`, size, userShot);
-         placeEnemyBoats();
-      }
-      genCompShotOpt();
-      $('.message').text(`Alright, Let's Play!`);
-      return gamePlay();
+      return letsPlay();
    }
 } //returns gamePlay
 const vertToggle = () => {
@@ -190,6 +210,17 @@ const getRow = (event) => {
 const getCol = (event) => {
    return Number($(event.currentTarget).attr('id'));
 }
+const letsPlay = () => {
+   killBoatPlaceClicks();
+   if (!devMode) {
+      buildBoard(`enemy`, size, userShot);
+      placeEnemyBoats();
+      $(`.enemyHeader`).text(`Enemy Boats`)
+   }
+   genCompShotOpt();
+   $('.message').text(`Alright, Let's Play!`);
+   return gamePlay();
+}
 const renderHit = (event) => {
    $(event.currentTarget).off();
    $(event.currentTarget).addClass(`hit`);
@@ -226,6 +257,7 @@ class Boat {
       this.hit.shift();
       this.hit.push(true);
       this.checkForSunk(opp);
+      this.renderDamage()
    }
    checkForSunk(opp) {
       for (let i = 0; i < this.length; i++) {
@@ -241,11 +273,21 @@ class Boat {
       opp.splice(opp.indexOf(this),1);
       //console.log(opp);
    }
+   renderDamage() {
+      let imgKey = this.imgId
+      let dmgCnt = 0
+      for (let i = 0; i < this.length; i++) {
+         if (this.hit[i]) {
+            dmgCnt++
+         }
+      }
+      console.log(imgAddress[imgKey][dmgCnt])
+   }
 }
 
 class HeroBoat extends Boat {
-   constructor(name, length) {
-      super(name, length)
+   constructor(name, length, imgId) {
+      super(name, length, imgId)
    }
    colorIn(event, row, col) {
       $(event).addClass('bb')
@@ -283,8 +325,8 @@ class HeroBoat extends Boat {
 }
 
 class EnemyBoat extends Boat {
-   constructor(name, length) {
-      super(name, length)
+   constructor(name, length, imgId) {
+      super(name, length, imgId)
    }
    colorIn(row, col) {
       let $enemySq = $(`.enemySq`)
@@ -335,7 +377,7 @@ const placeEnemyBoats = () => {
       if ( Math.random() > .5 ) {vertToggle()}
       //console.log('new go', row, col, vertical);
       if (checkConflicts(row, col, `.enemySq`, newBoatLength)) {
-         enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1]));
+         enemyBoats.unshift(new EnemyBoat (availEnemy[0][0],availEnemy[0][1],availEnemy[0][2]));
          console.log(enemyBoats[0].name, enemyBoats[0].position);
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
