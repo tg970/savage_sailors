@@ -236,13 +236,19 @@ body {
    width: 33%;
    height: inherit;
 }
-.boats, .coconutWrapper {
+.boats,  .coconutWrapper {
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: center;
 }
-#cat {
+.enemyboats {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+#cat  {
    max-height: 100%;
    max-width: 50%;
    border-radius: 20px;
@@ -264,7 +270,19 @@ body {
    align-items: center;
    justify-content: space-around;
 }
-#dingy {
+.boats_sub_em {
+   height: 50%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+#traw {
+   max-height: 50%;
+   /*max-width: 50%;*/
+   border-radius: 20px;
+}
+#dingy, #skif {
    width: 100%;
    max-width: 125px;
    border-radius: 10px;
@@ -272,6 +290,10 @@ body {
 #fish {
    width: 100%;
    max-width: 150px;
+   border-radius: 10px;
+}
+#toon {
+   height: 100%;
    border-radius: 10px;
 }
 .notplaced {

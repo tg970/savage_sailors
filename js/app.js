@@ -396,6 +396,7 @@ const placeEnemyBoats = () => {
          availEnemy.shift();
          enemyBoats[0].posBuild(row, col);
          enemyBoats[0].colorIn(row, col);
+         $(`#${enemyBoats[0].imgId}`).removeClass(`notplaced`)
          //console.log(enemyBoats);
       }
    }
