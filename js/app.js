@@ -557,6 +557,7 @@ const resetBoard = () => {
       $(`#${img}`).addClass(`notplaced`);
       $(`#${img}`).attr(`src`,`${imgAddress[img].reset}`)
       $(`#${img}`).css(`background`,``)
+   
    }
    $(`.message`).empty()
    $(`.hero`).empty()
