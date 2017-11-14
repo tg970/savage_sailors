@@ -28,16 +28,16 @@ const imgAddress = {
       reset: `./img/tender.png`
    },
    'traw': {
-      sunk:`some image of trawler sunk`,
-      reset:``
+      sunk:`./img/emTrawler_sunk.png`,
+      reset:`./img/emTrawler.png`
    },
    'toon': {
-      sunk:`image of pontoon sunk`,
-      reset:`org img toon`
+      sunk:`./img/olbusted_sunk.png`,
+      reset:`./img/olbusted.png`
    },
    'skif': {
-      sunk:`skiff blown to smitheriens`,
-      reset: `org img skif`
+      sunk:`./img/skiff_sunk.png`,
+      reset: `./img/skiff.png`
    }
 }
 
@@ -292,6 +292,8 @@ class Boat {
       } else {
          if (dmgCnt === this.length) {
             console.log(imgAddress[imgId])
+            $(`#${imgId}`).attr('src',`${imgAddress[imgId].sunk}`)
+            $(`#${imgId}`).css('background',`rgba(255,34,35,0.5)`)
          }
       }
    }
@@ -522,7 +524,7 @@ const askReset = () => {
 }
 
 const resetBoard = () => {
-   let imgArr = ['cat', 'fish', 'dingy']
+   let imgArr = ['cat', 'fish', 'dingy', `traw`, `toon`, `skif`]
    for (let img of imgArr) {
       $(`#${img}`).addClass(`notplaced`);
       $(`#${img}`).attr(`src`,`${imgAddress[img].reset}`)
