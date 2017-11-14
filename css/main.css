@@ -75,7 +75,6 @@ body {
     padding-top: 60px;
     text-overflow: clip;
 }
-
 .navDiv {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -89,11 +88,9 @@ body {
     transition: 0.3s;
     cursor: pointer;
 }
-
 .sidenav div:hover {
     color: #00506C;
 }
-
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -102,11 +99,9 @@ body {
     margin-top: 15px;
     /*margin-left: 50px;*/
 }
-
 .navSub {
    display: none;
 }
-
 .navSub p {
    font-size: 15px;
    font-family: 'Lato', sans-serif;
@@ -172,9 +167,10 @@ body {
    font-family: 'Lato', sans-serif;
    border: 1px solid silver;
    border-radius: 15px;
-   background-color: green;
+   background-color: #1E6B34;
    opacity: .85;
    cursor: pointer;
+   color: #fff
 }
 .reset {
    width: 80px;
@@ -363,7 +359,6 @@ body {
 #cocoTree {
    transform: scale(.65) translate(60px, -25px);
 }
-
 .hide {
    display: none;
 }

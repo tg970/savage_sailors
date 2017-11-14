@@ -87,7 +87,7 @@ const removeHidden = () => {
 }
 const menuIn = (event) => {
    //console.log('menu in')
-   $('#mySidenav').css('width','250px');
+   $('#mySidenav').css('width','300px');
 }
 const menuOut = (event) => {
    //console.log('menu Out');
@@ -100,6 +100,7 @@ const hideGo_n_start = (event) => {
    $(`.goWrapper`).addClass(`hide`);
    $(`.boatsHeader`).text(`Boats`);
    $(`.board`).removeClass(`hide`);
+   $('#navResetBtn').on('click',resetBoard)
    startGame();
 }
 const boatPlacement = (event) => {
@@ -131,6 +132,11 @@ const boatPlacement = (event) => {
 } //returns gamePlay
 const vertToggle = () => {
    vertical = !vertical
+   if (vertical) {
+      $('.vertBtn').css(`background-color`,'#1D733A')
+   } else {
+      $('.vertBtn').css(`background-color`,'#00516C')
+   }
 }
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
@@ -593,7 +599,6 @@ const landing = () => {
    $('.menuImg').on('click',menuIn)
    $('.closebtn').on('click',menuOut)
    $('.navDiv').on('click', showNav)
-   $('#navResetBtn').on('click',resetBoard)
    if (devMode) {
       hideGo_n_start();
    } else {
