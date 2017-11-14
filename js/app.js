@@ -84,7 +84,18 @@ const getDelay = (i, j) => {
 const removeHidden = () => {
    $(`.hidden`).eq(0).removeClass(`hidden`);
 }
-
+const menuIn = (event) => {
+   //console.log('menu in')
+   $('#mySidenav').css('width','250px');
+   $(event.currentTarget).off()
+   $(event.currentTarget).on('click',menuOut)
+}
+const menuOut = (event) => {
+   //console.log('menu Out');
+   $('#mySidenav').css('width','0px');
+   $(event.currentTarget).off()
+   $(event.currentTarget).on('click',menuIn)
+}
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
@@ -568,6 +579,7 @@ const startGame = () => {
 }
 
 const landing = () => {
+   $('.menuImg').on('click',menuIn)
    if (devMode) {
       hideGo_n_start();
    } else {
