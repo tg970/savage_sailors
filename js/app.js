@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -72,7 +72,7 @@ const buildBoard = (user, size, func) => {
          $('.resetBtn').removeClass(`hide`)
       }
    } else if (!devMode) {
-      $('.heroSq').css('cursor','auto')
+      $('.heroSq').css('cursor','not-allowed')
       $(`.vert`).addClass(`hide`)
       $('.vertBtn').addClass(`hide`).off()
       $('.reset').addClass(`hide`)
@@ -577,6 +577,7 @@ const startGame = () => {
 
 const landing = () => {
    $('.menuImg').on('click',menuIn)
+   $('.closebtn').on('click',menuOut)
    if (devMode) {
       hideGo_n_start();
    } else {
