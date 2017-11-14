@@ -93,6 +93,7 @@ const menuOut = (event) => {
    //console.log('menu Out');
    $('#mySidenav').css('width','0px');
 }
+
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
@@ -154,6 +155,19 @@ const userShot = (event) => {
       userTurn = !userTurn
       return gamePlay();
    }
+}
+const showNav = (event) => {
+   //console.log('showNav firing');
+   let navItem = $(event.currentTarget).children();
+   navItem.show()
+   $(event.currentTarget).off()
+   $(event.currentTarget).on('click',unShowNav)
+}
+const unShowNav = (event) => {
+   let navItem = $(event.currentTarget).children();
+   navItem.hide()
+   $(event.currentTarget).off()
+   $(event.currentTarget).on('click',showNav)
 }
 
 // === Henderler Dependencies ===
@@ -578,6 +592,8 @@ const startGame = () => {
 const landing = () => {
    $('.menuImg').on('click',menuIn)
    $('.closebtn').on('click',menuOut)
+   $('.navDiv').on('click', showNav)
+   $('#navResetBtn').on('click',resetBoard)
    if (devMode) {
       hideGo_n_start();
    } else {
