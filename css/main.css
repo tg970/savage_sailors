@@ -69,9 +69,11 @@ body {
     top: 0;
     right: 0;
     background-color: rgba(255,255,255,.95);
+    white-space: nowrap;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    text-overflow: clip;
 }
 
 .sidenav div {
@@ -80,7 +82,10 @@ body {
     font-size: 20px;
     font-family: 'Finger Paint', cursive;
     color: #A6A6A6;
+    white-space: nowrap;
     display: block;
+    overflow: hidden;
+    text-overflow: clip;
     transition: 0.3s;
     cursor: pointer;
 }
@@ -354,6 +359,7 @@ body {
 .hide {
    display: none;
 }
+
 @keyframes zip-in {
   0% {transform: rotate(360deg);}
   /*10% {transform: scale(1.45)}*/
