@@ -5,7 +5,7 @@ font-family: 'Lato', sans-serif;*/
 body {
    /*max-width: 97%;*/
    /*align-items: center;*/
-   background-image: url("../img/background_copy_2.png");
+   background-image: url("../img/background_ps.png");
    background-size: cover;
    background-repeat: no-repeat;
    background-position: center;
@@ -87,13 +87,14 @@ body {
 .goBtnText {
    font-family: 'Finger Paint', cursive;
    font-size: 50px;
+   color: white;
    text-shadow:
-      -2px 2px 1px black,
-      -5px 5px 10px #FEFEFE,
+      -2px 2px 1px black;
+      /*-5px 5px 10px #FEFEFE,
       0px 4px 5px #FEFEFE,
       4px 4px 5px #FEFEFE,
       3px -1px 5px #FEFEFE,
-      -3px -3px 5px #FEFEFE;
+      -3px -3px 5px #FEFEFE;*/
 }
 .board {
    /*height: 400px;*/
