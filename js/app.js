@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = true
+const devMode = false
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
