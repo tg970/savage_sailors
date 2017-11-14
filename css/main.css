@@ -36,6 +36,7 @@ body {
 }
 .menuImg {
    /*margin-left: auto;*/
+   cursor: pointer;
 }
 .messageContainer {
    height: 50px;
@@ -81,6 +82,7 @@ body {
     color: #A6A6A6;
     display: block;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .sidenav div:hover {
@@ -119,6 +121,7 @@ body {
    display: flex;
    justify-content: center;
    align-items: center;
+   cursor: pointer;
 }
 .goBtnText {
    font-family: 'Finger Paint', cursive;
@@ -154,6 +157,7 @@ body {
    border-radius: 15px;
    background-color: green;
    opacity: .85;
+   cursor: pointer;
 }
 .reset {
    width: 80px;
@@ -169,6 +173,7 @@ body {
    border-radius: 15px;
    background-color: green;
    opacity: .85;
+   cursor: pointer;
 }
 
 /* ======================= SQUARES SECTION ===================== */
@@ -199,6 +204,7 @@ body {
    animation-iteration-count: 1;*/
    /*animation-delay: 2000ms;*/
    /*display: none;*/
+   cursor: pointer;
 }
 .hidden {
    display: none;

@@ -72,6 +72,7 @@ const buildBoard = (user, size, func) => {
          $('.resetBtn').removeClass(`hide`)
       }
    } else if (!devMode) {
+      $('.heroSq').css('cursor','auto')
       $(`.vert`).addClass(`hide`)
       $('.vertBtn').addClass(`hide`).off()
       $('.reset').addClass(`hide`)
@@ -87,14 +88,10 @@ const removeHidden = () => {
 const menuIn = (event) => {
    //console.log('menu in')
    $('#mySidenav').css('width','250px');
-   $(event.currentTarget).off()
-   $(event.currentTarget).on('click',menuOut)
 }
 const menuOut = (event) => {
    //console.log('menu Out');
    $('#mySidenav').css('width','0px');
-   $(event.currentTarget).off()
-   $(event.currentTarget).on('click',menuIn)
 }
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
