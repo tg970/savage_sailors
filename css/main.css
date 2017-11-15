@@ -10,6 +10,10 @@ body {
    background-repeat: no-repeat;
    background-position: center;
    background-color: #00506C;
+   display: flex;
+   flex-direction: column;
+   /*align-items: center;*/
+   justify-content: center;
 }
 
 /* ================== NAV & MESSAGE SECTION ELEMENTS =========== */
@@ -39,7 +43,9 @@ body {
    cursor: pointer;
 }
 .messageContainer {
+
    height: 50px;
+   max-width: 100%;
    display: flex;
    align-items: flex-end;
    justify-content: center;
@@ -47,7 +53,8 @@ body {
 .start {
    transform: translate( 200px, 0px);
 }
-.message {
+.messageHero, .messageEnemy {
+   width: 40%;
    text-align: center;
    vertical-align: bottom;
    font-size: 23px;
@@ -60,6 +67,9 @@ body {
       4px 4px 10px #0B627C,
       -4px -4px 10px #0B627C,
       4px -4px 10px #0B627C;
+}
+.messageSpacer {
+   width: 30%;
 }
 .sidenav {
     height: 100%;
@@ -225,15 +235,16 @@ body {
 .enemySq {
    background-color: #FEFEFE;
 }
-.enemySq:hover {
-   background-color: pink;
-}
 .bg {
    background-color: #FEFEFE;
 }
 .bb {
    background-color: blue;
    opacity: .90;
+}
+.us {
+   border-radius: 25%;
+   /*background-color: */
 }
 
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
@@ -325,7 +336,6 @@ body {
    filter: FlipH;
    -ms-filter: "FlipH";
 }
-
 .boats_sub {
    height: 100%;
    display: flex;

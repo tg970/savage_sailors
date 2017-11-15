@@ -12,6 +12,7 @@ let userTurn = false;
 let compShotOpt = [];
 let vertical = true;
 let enemySqSB = 6;
+let first_go = true;
 const imgAddress = {
    'cat': {
       1:`./img/cat_damg_1.png`,
@@ -53,6 +54,9 @@ const buildBoard = (user, size, func) => {
          if (user == `hero`) {
             $sq.on('mouseenter',renderBoatHover)
             $sq.on('mouseleave',deRenderBoatHover)
+         } else {
+            $sq.on('mouseenter', renderUserShotHover)
+            $sq.on('mouseleave', deRenderUserShotHover)
          }
          let delay = getDelay(i, j)
          $sq.addClass(`hidden`)
@@ -87,7 +91,6 @@ const removeHidden = () => {
    $(`.hidden`).eq(0).removeClass(`hidden`);
 }
 
-
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
@@ -104,7 +107,7 @@ const boatPlacement = (event) => {
    let row = getRow(event);
    let col = getCol(event);
    if (checkConflicts(row, col, `.heroSq`, newBoatLength)) {
-      $(`.messageContainer`).removeClass(`start`)
+      //$(`.messageContainer`).removeClass(`start`)
       // throw into rendering the boat info tiles
          $(`#${id}`).removeClass(`notplaced`)
       // ....
@@ -118,7 +121,7 @@ const boatPlacement = (event) => {
       //console.log('boat built');
       //console.log(userBoats);
    } else {
-      $('.message').text(`${newBoatName} won't fit there, try again...`)
+      $('.messageHero').text(`${newBoatName} won't fit there, try again...`)
    }
    if (availBoats.length == 0) {
       return letsPlay();
@@ -144,12 +147,14 @@ const userShot = (event) => {
       let row = getRow(event);
       let col = getCol(event);
       let shot = checkHit(row, col, enemyBoats);
+      $('.messageHero').css(`opacity`,`.25`)
+      $('.messageEnemy').css(`opacity`,``)
       if (shot.t) {
-         $('.message').text(`That's a HIT!!!!`)
+         $('.messageEnemy').text(`That's a HIT!!!!`)
          shot.b.damage(enemyBoats)
          renderHit(event)
       } else {
-         $('.message').text(`Misssssed....`);
+         $('.messageEnemy').text(`Misssssed....`);
          renderMiss(event)
       }
       userTurn = !userTurn
@@ -254,7 +259,8 @@ const letsPlay = () => {
       $(`.enemyHeader`).text(`Enemy Boats`)
    }
    genCompShotOpt();
-   $('.message').text(`Alright, Let's Play!`);
+   $('.messageEnemy').text(`Alright, Let's Play!`)
+   $('.messageHero').text(``);
    return gamePlay();
 }
 const renderHit = (event) => {
@@ -264,6 +270,20 @@ const renderHit = (event) => {
 const renderMiss = (event) => {
    $(event.currentTarget).off();
    $(event.currentTarget).addClass(`miss`)
+}
+const userMessageHit = () => {
+   //console.log(`userMessageHit`);
+   $('.messageHero').text(`That's a HIT!!!!`)
+}
+const userMessageMiss = () => {
+   //console.log(`userMessageMiss`);
+   $('.messageHero').text(`Misssssed....`)
+}
+const renderUserShotHover = (event) => {
+   $(event.currentTarget).addClass(`us`)
+}
+const deRenderUserShotHover = (event) => {
+   $(event.currentTarget).removeClass(`us`)
 }
 
 // === LOGIC LAYER ===
@@ -304,7 +324,7 @@ class Boat {
          }
       }
       $('.message').text(`${this.name} Sunk!`);
-      console.log(`${this.name} Sunk!`);
+      //console.log(`${this.name} Sunk!`);
       //console.log(this);
       opp.splice(opp.indexOf(this),1);
       //console.log(opp);
@@ -368,7 +388,7 @@ class HeroBoat extends Boat {
       }
    }
    placedMessage(nextBoatName) {
-      $('.message').text(`${this.name} has been put on the board! Click again to place ${nextBoatName}:`)
+      $('.messageHero').text(`${this.name} has been put on the board! Click again to place ${nextBoatName}:`)
    }
 }
 
@@ -515,18 +535,27 @@ const computerShot = () => {
    compShotOpt.splice(randIndex, 1)
    //console.log(target);
    let shot = checkHit(target[0], target[1], userBoats);
+   $('.messageEnemy').css(`opacity`,`.25`)
+   $('.messageHero').css(`opacity`,`1.0`)
    if (shot.t) {
-      $('.message').text(`That's a HIT!!!!`)
+      if (first_go) {
+         setTimeout(userMessageHit, 1000)
+         first_go = false
+      } else { userMessageHit() }
       shot.b.damage(userBoats)
-      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit`)
+      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit us`)
    } else {
-      $('.message').text(`Misssssed....`);
-      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss`)
+      if (first_go) {
+         setTimeout(userMessageMiss, 1000)
+         first_go = false
+      } else { userMessageMiss() };
+      $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss us`)
    }
    userTurn = !userTurn
    $('.enemySq').not('.hit, .miss').css('cursor','pointer')
    // $(`.enemy`).css(`border`,`2px solid yellow`)
    // $(`.hero`).css(`border`,`2px solid transparent`)
+
    checkGameOver();
 }
 
@@ -601,15 +630,15 @@ const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       if (devMode) {computerShot()}
-      else {setTimeout(computerShot, 2000)};
+      else {setTimeout(computerShot, 2500)};
    }
    checkGameOver();
    //console.log('userTurn now', userTurn);
 }
 
 const startGame = () => {
-   $('.message').text("Place your Boats!")
-   $('.messageContainer').addClass(`start`)
+   $('.messageHero').text("Place your Boats!")
+   //$('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
    if (devMode) {
       $('*').css(`border`,`1px solid green`)
