@@ -233,11 +233,13 @@ body {
 }
 .bb {
    background-color: blue;
+   opacity: .90;
 }
 
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
 .hit {
    background-color: red;
+   opacity: .90;
 }
 .miss {
    background-color: yellow;
