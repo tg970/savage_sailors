@@ -271,14 +271,6 @@ const renderMiss = (event) => {
    $(event.currentTarget).off();
    $(event.currentTarget).addClass(`miss`)
 }
-const userMessageHit = () => {
-   //console.log(`userMessageHit`);
-   $('.messageHero').text(`that's a hit... `)
-}
-const userMessageMiss = () => {
-   //console.log(`userMessageMiss`);
-   $('.messageHero').text(`Missed!`)
-}
 const renderUserShotHover = (event) => {
    $(event.currentTarget).addClass(`us`)
 }
@@ -569,6 +561,16 @@ const checkHit = (row, col, otherBoats) => {
       }
    }
    return false
+}
+
+const userMessageHit = () => {
+   //console.log(`userMessageHit`);
+   $('.messageHero').text(`that's a hit... `)
+}
+
+const userMessageMiss = () => {
+   //console.log(`userMessageMiss`);
+   $('.messageHero').text(`Missed!`)
 }
 
 const checkGameOver = () => {
