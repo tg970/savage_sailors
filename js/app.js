@@ -344,7 +344,7 @@ class Boat {
          }
       } else {
          if (dmgCnt === this.length) {
-            console.log(imgAddress[imgId])
+            //console.log(imgAddress[imgId])
             $(`#${imgId}`).attr('src',`${imgAddress[imgId].sunk}`)
             $(`#${imgId}`).css('background',`rgba(255,34,35,0.5)`)
          }
@@ -574,13 +574,13 @@ const checkHit = (row, col, otherBoats) => {
 const checkGameOver = () => {
    if ( userBoats.length == 0 ) {
       console.log(`game over user`);
-      $('.message').text(`Game over...  :(`);
+      $('.messageHero').text(`Game over...  :(`);
       showEnemyBoard();
       askReset();
    }
    if ( enemyBoats.length == 0 ) {
       console.log(`game for enemy`);
-      $('.message').text(`You Won!!!`);
+      $('.messageEnemy').text(`You Won!!!`);
       showEnemyBoard();
       askReset();
    }
@@ -630,7 +630,7 @@ const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       if (devMode) {computerShot()}
-      else {setTimeout(computerShot, 2500)};
+      else {setTimeout(computerShot, 2000)};
    }
    checkGameOver();
    //console.log('userTurn now', userTurn);
