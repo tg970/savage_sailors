@@ -262,9 +262,9 @@ body {
    flex-direction: row;
    justify-content: space-around;
 }
-.boatsHeader, .enemyHeader, .coconutHeader {
+.boatsHeader, .enemyHeader, .coconutHeader, .notsureyetHeader {
    /*background-color: green;*/
-   width: 33%;
+   width: 25%;
    height: inherit;
    text-align: center;
    vertical-align: bottom;
@@ -272,6 +272,9 @@ body {
    color: #F9EFE5;
    text-shadow: -5px 5px 5px black;
    cursor: default;
+}
+.spacerHeader {
+   width: 10%;
 }
 .boatsHeader {
    font-family: 'Lato', sans-serif;
@@ -291,9 +294,12 @@ body {
    flex-direction: row;
    justify-content: space-around;
 }
-.boats, .enemyboats, .coconutWrapper {
-   width: 33%;
+.boats, .enemyboats, .coconutWrapper, .notsureyet {
+   width: 25%;
    height: inherit;
+}
+.spacer {
+   width: 10%;
 }
 .boats,  .coconutWrapper {
    display: flex;
@@ -311,6 +317,12 @@ body {
    max-height: 100%;
    max-width: 50%;
    border-radius: 20px;
+   -moz-transform: scaleX(-1);
+   -o-transform: scaleX(-1);
+   -webkit-transform: scaleX(-1);
+   transform: scaleX(-1);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 #cat:after {
     content: '';
