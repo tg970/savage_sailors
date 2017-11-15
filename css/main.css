@@ -53,11 +53,11 @@ body {
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   width: 80%;
+   width: 960px;
 }
 .messageHero, .messageEnemy {
    height: 100%;
-   width: 40%;
+   width: 400px;
    text-align: center;
    vertical-align: bottom;
    font-size: 23px;
