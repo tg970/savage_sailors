@@ -317,6 +317,7 @@ body {
    max-height: 100%;
    max-width: 50%;
    border-radius: 20px;
+   /*THANKS: https://css-tricks.com/*/
    -moz-transform: scaleX(-1);
    -o-transform: scaleX(-1);
    -webkit-transform: scaleX(-1);
@@ -352,26 +353,62 @@ body {
    max-height: 50%;
    /*max-width: 50%;*/
    border-radius: 20px;
+   /*THANKS: https://css-tricks.com/*/
+   -moz-transform: scaleX(-1);
+   -o-transform: scaleX(-1);
+   -webkit-transform: scaleX(-1);
+   transform: scaleX(-1);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 #dingy, #skif {
    width: 100%;
    max-width: 125px;
    border-radius: 10px;
+   /*THANKS: https://css-tricks.com/*/
+   -moz-transform: scaleX(-1);
+   -o-transform: scaleX(-1);
+   -webkit-transform: scaleX(-1);
+   transform: scaleX(-1);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 #fish {
    width: 100%;
    max-width: 150px;
    border-radius: 10px;
+   /*THANKS: https://css-tricks.com/*/
+   -moz-transform: scaleX(-1);
+   -o-transform: scaleX(-1);
+   -webkit-transform: scaleX(-1);
+   transform: scaleX(-1);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 #toon {
    height: 100%;
    border-radius: 10px;
+   /*THANKS: https://css-tricks.com/*/
+   -moz-transform: scaleX(-1);
+   -o-transform: scaleX(-1);
+   -webkit-transform: scaleX(-1);
+   transform: scaleX(-1);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 .notplaced {
    opacity: .25;
 }
 #cocoTree {
    transform: scale(.65) translate(60px, -25px);
+}
+#cocoTreeBack {
+   -moz-transform: scaleX(-.65) scaleY(.65);
+   -o-transform: scaleX(-.65) scaleY(.65);
+   -webkit-transform: scaleX(-.65) scaleY(.65);
+   transform: scaleX(-.65) scaleY(.65) translate(60px, -25px);
+   filter: FlipH;
+   -ms-filter: "FlipH";
 }
 .hide {
    display: none;
