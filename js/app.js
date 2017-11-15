@@ -273,7 +273,7 @@ const renderMiss = (event) => {
 }
 const userMessageHit = () => {
    //console.log(`userMessageHit`);
-   $('.messageHero').text(`That's a HIT!!!!`)
+   $('.messageHero').text(`That's a HIT! $#*!`)
 }
 const userMessageMiss = () => {
    //console.log(`userMessageMiss`);
