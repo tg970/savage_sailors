@@ -22,7 +22,7 @@ body {
 .logo {
    height: 15%;
    font-family: 'Finger Paint', cursive;
-   font-size: 50px;
+   font-size: 55px;
    font-weight: bold;
    align-self: flex-start;
    width: 80%;
@@ -325,16 +325,7 @@ body {
    filter: FlipH;
    -ms-filter: "FlipH";
 }
-#cat:after {
-    content: '';
-    position: absolute;
-    z-index: -1; /* hide shadow behind image */
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
-    width: 70%;
-    left: 15%; /* one half of the remaining 30% */
-    max-height: 100%;
-    bottom: 0;
-}
+
 .boats_sub {
    height: 100%;
    display: flex;
@@ -351,6 +342,7 @@ body {
 }
 #traw {
    max-height: 50%;
+   max-width: 100%;
    /*max-width: 50%;*/
    border-radius: 20px;
    /*THANKS: https://css-tricks.com/*/
@@ -385,8 +377,12 @@ body {
    filter: FlipH;
    -ms-filter: "FlipH";
 }
+#skif {
+   max-width: 50%;
+}
 #toon {
    height: 100%;
+   max-width: 50%;
    border-radius: 10px;
    /*THANKS: https://css-tricks.com/*/
    -moz-transform: scaleX(-1);
@@ -400,15 +396,17 @@ body {
    opacity: .25;
 }
 #cocoTree {
-   transform: scale(.65) translate(60px, -25px);
+   transform: scale(.65) translate(0px, -25px);
+   max-width: 115%;
 }
 #cocoTreeBack {
    -moz-transform: scaleX(-.65) scaleY(.65);
    -o-transform: scaleX(-.65) scaleY(.65);
    -webkit-transform: scaleX(-.65) scaleY(.65);
-   transform: scaleX(-.65) scaleY(.65) translate(60px, -25px);
+   transform: scaleX(-.65) scaleY(.65) translate(0px, -25px);
    filter: FlipH;
    -ms-filter: "FlipH";
+   max-width: 115%;
 }
 .hide {
    display: none;
