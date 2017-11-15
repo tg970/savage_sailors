@@ -72,7 +72,7 @@ const buildBoard = (user, size, func) => {
          $('.resetBtn').removeClass(`hide`)
       }
    } else if (!devMode) {
-      $('.heroSq').css('cursor','not-allowed')
+      // $('.heroSq').css('cursor','not-allowed')
       $(`.vert`).addClass(`hide`)
       $('.vertBtn').addClass(`hide`).off()
       $('.reset').addClass(`hide`)
@@ -145,7 +145,7 @@ const killBoatPlaceClicks = () => {
    }
 }
 const userShot = (event) => {
-   console.log('user fired');
+   //console.log('user fired');
    if (userTurn) {
       let row = getRow(event);
       let col = getCol(event);
@@ -159,6 +159,9 @@ const userShot = (event) => {
          renderMiss(event)
       }
       userTurn = !userTurn
+      $('.enemySq').css('cursor','not-allowed')
+      // $(`.hero`).css(`border`,`2px solid yellow`)
+      // $(`.enemy`).css(`border`,`2px solid transparent`)
       return gamePlay();
    }
 }
@@ -500,11 +503,11 @@ const genCompShotOpt = () => {
          compShotOpt.push([i, j])
       }
    }
-   console.log(compShotOpt);
+   //console.log(compShotOpt);
 }
 
 const computerShot = () => {
-   console.log('computer shooting');
+   //console.log('computer shooting');
    let randIndex = Math.floor(Math.random()*compShotOpt.length)
    let target = compShotOpt[randIndex]
    compShotOpt.splice(randIndex, 1)
@@ -519,6 +522,9 @@ const computerShot = () => {
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss`)
    }
    userTurn = !userTurn
+   $('.enemySq').css('cursor','pointer')
+   // $(`.enemy`).css(`border`,`2px solid yellow`)
+   // $(`.hero`).css(`border`,`2px solid transparent`)
    checkGameOver();
 }
 
