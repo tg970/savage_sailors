@@ -45,7 +45,7 @@ body {
    justify-content: center;
 }
 .start {
-   transform: translate( -200px, 0px);
+   transform: translate( 200px, 0px);
 }
 .message {
    text-align: center;
@@ -229,7 +229,7 @@ body {
    background-color: pink;
 }
 .bg {
-   background-color: green;
+   background-color: #FEFEFE;
 }
 .bb {
    background-color: blue;
