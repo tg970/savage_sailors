@@ -43,17 +43,20 @@ body {
    cursor: pointer;
 }
 .messageContainer {
-
    height: 50px;
-   max-width: 100%;
    display: flex;
    align-items: flex-end;
-   justify-content: center;
+   justify-content: space-around;
 }
-.start {
-   transform: translate( 200px, 0px);
+.messageBoard {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   width: 80%;
 }
 .messageHero, .messageEnemy {
+   height: 100%;
    width: 40%;
    text-align: center;
    vertical-align: bottom;
@@ -69,7 +72,7 @@ body {
       4px -4px 10px #0B627C;
 }
 .messageSpacer {
-   width: 30%;
+   width: 15%;
 }
 .sidenav {
     height: 100%;
@@ -163,7 +166,7 @@ body {
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   /*width: 850px;*/
+   /*width: 960px;*/
 }
 .vert {
    width: 80px;
@@ -215,9 +218,11 @@ body {
    justify-content: flex-start;
 }
 .heroSq, .enemySq {
-   width: 95px;
-   height: 95px;
+   width: 78px;
+   height: 78px;
    border: 1px solid black;
+   background-color: white;
+   opacity: .25;
    /*opacity: .75;*/
    transform: scale(1);
    transform: rotate(0deg);

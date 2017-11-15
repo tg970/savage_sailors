@@ -5,7 +5,8 @@ const publish = true
 // === GLOBAL VARIABLES ===
 let userBoats = [];
 let enemyBoats = [];
-let size = 4;
+let size = 5;
+let boardHeightPx = 400
 let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Tender', 1, `dingy`]];
 let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Steamer', 2, `toon`],['Skiff', 1, `skif`]];
 let userTurn = false;
@@ -46,7 +47,9 @@ const imgAddress = {
 // === BOARD RENDER ===
 const buildBoard = (user, size, func) => {
    for (let i = 0; i < size; i++) {
-      const $container = $('<div>').addClass(`${user}Row`)
+      // let sqSide = (((boardHeightPx - (size * 2))/boardHeightPx)/size)*100
+      let rowHeight = Math.floor(100 / size)
+      const $container = $('<div>').addClass(`${user}Row`) //.css(`height`,`${rowHeight}%`)
       for (let j = 0; j < size; j++) {
          let $sq = $('<div>').addClass(`${user}Sq`).attr(`id`,`${j}`)
          $sq.addClass(`${i}`)
@@ -58,6 +61,9 @@ const buildBoard = (user, size, func) => {
             $sq.on('mouseenter', renderUserShotHover)
             $sq.on('mouseleave', deRenderUserShotHover)
          }
+         //console.log(sqSide);
+         // $sq.css(`height`,`${rowHeight}%`)
+         // $sq.css(`width`,`${sqSide}%`)
          let delay = getDelay(i, j)
          $sq.addClass(`hidden`)
          if (devMode) {
@@ -70,17 +76,18 @@ const buildBoard = (user, size, func) => {
    $(`.${user}`).append($container)
    }
    if (user == `hero`) {
-      $(`.vert`).removeClass(`hide`)
+      //$(`.vert`).removeClass(`hide`)
       $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
-      $('.reset').removeClass(`hide`)
+      //$('.reset').removeClass(`hide`)
       if (devMode) {
          $('.resetBtn').removeClass(`hide`)
       }
    } else if (!devMode) {
       // $('.heroSq').css('cursor','not-allowed')
-      $(`.vert`).addClass(`hide`)
+      //$(`.vert`).addClass(`hide`)
       $('.vertBtn').addClass(`hide`).off()
-      $('.reset').addClass(`hide`)
+      //$('.reset').addClass(`hide`)
+      $(`.enemySq`).css(`opacity`,`1`)
    }
    //$(`.messageContainer`)
 }
@@ -189,7 +196,7 @@ const unShowNav = (event) => {
 // === Henderler Dependencies ===
 const renderBoatHover = (event) => {
    //console.log(`renderBoatHover firing`);
-   $(event.currentTarget).addClass('bg')
+   $(event.currentTarget).addClass('bg').css(`opacity`, `1`)
    let row = getRow(event);
    let col = getCol(event);
    let cnt = availBoats[0][1]-1
@@ -200,7 +207,7 @@ const renderBoatHover = (event) => {
          let id = $($div[i]).attr('id')
          //console.log(id);
          if ( id > col && cnt > 0 ) {
-            $($div[i]).addClass('bg')
+            $($div[i]).addClass('bg').css(`opacity`, `1`)
             cnt--
          }
       }
@@ -210,7 +217,7 @@ const renderBoatHover = (event) => {
          let tmpRow = $($col[i]).attr('class').split(' ')[1]
          //console.log(id);
          if ( tmpRow > row && cnt > 0 ) {
-            $($col[i]).addClass('bg')
+            $($col[i]).addClass('bg').css(`opacity`, `1`)
             cnt--
          }
       }
@@ -218,7 +225,7 @@ const renderBoatHover = (event) => {
 }
 const deRenderBoatHover = (event) => {
    //console.log(`DErenderBoatHover firing`);
-   $(event.currentTarget).removeClass('bg')
+   $(event.currentTarget).removeClass('bg').css(`opacity`, `.25`)
    let row = getRow(event);
    let col = getCol(event);
    let cnt = availBoats[0][1]-1
@@ -229,7 +236,7 @@ const deRenderBoatHover = (event) => {
          let id = $($div[i]).attr('id')
          //console.log(id);
          if ( id > col && cnt > 0 ) {
-            $($div[i]).removeClass('bg')
+            $($div[i]).removeClass('bg').css(`opacity`, `.25`)
             cnt--
          }
       }
@@ -239,7 +246,7 @@ const deRenderBoatHover = (event) => {
          let tmpRow = $($col[i]).attr('class').split(' ')[1]
          //console.log(id);
          if ( tmpRow > row && cnt > 0 ) {
-            $($col[i]).removeClass('bg')
+            $($col[i]).removeClass('bg').css(`opacity`, `.25`)
             cnt--
          }
       }
@@ -269,7 +276,7 @@ const renderHit = (event) => {
 }
 const renderMiss = (event) => {
    $(event.currentTarget).off();
-   $(event.currentTarget).addClass(`miss`)
+   $(event.currentTarget).addClass(`miss`).css(`opacity`,`.25`)
 }
 const renderUserShotHover = (event) => {
    $(event.currentTarget).addClass(`us`)
@@ -576,7 +583,7 @@ const userMessageMiss = () => {
 const checkGameOver = () => {
    if ( userBoats.length == 0 ) {
       console.log(`game over user`);
-      $('.messageHero').text(`Game over...  :(`);
+      $('.messageHero').text(`Game over...  :(`).css(`opacity`,`1.0`);
       showEnemyBoard();
       askReset();
    }
@@ -616,8 +623,8 @@ const resetBoard = () => {
    $(`.message`).empty()
    $(`.hero`).empty()
    $(`.enemy`).empty()
-   $('.vert').addClass(`hide`)
-   $('.reset').addClass(`hide`)
+   // $('.vert').addClass(`hide`)
+   // $('.reset').addClass(`hide`)
    $('.resetBtn').addClass(`hide`)
    userBoats = [];
    enemyBoats = [];
@@ -632,7 +639,7 @@ const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       if (devMode) {computerShot()}
-      else {setTimeout(computerShot, 2000)};
+      else {setTimeout(computerShot, 1000)};
    }
    checkGameOver();
    //console.log('userTurn now', userTurn);
@@ -643,9 +650,9 @@ const startGame = () => {
    //$('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
    if (devMode) {
-      $('*').css(`border`,`1px solid green`)
-      $('.resetBtn').on('click',resetBoard)
       buildBoard(`enemy`, size, userShot);
+      $('.resetBtn').on('click',resetBoard)
+      $('*').not(".heroSq, .enemySq, .heroRow, .enemyRow").css(`border`,`1px solid green`)
       placeEnemyBoats();
    }
 }
