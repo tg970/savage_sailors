@@ -1,5 +1,6 @@
 //console.log($);
 const devMode = false
+const publish = true
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
@@ -85,14 +86,7 @@ const getDelay = (i, j) => {
 const removeHidden = () => {
    $(`.hidden`).eq(0).removeClass(`hidden`);
 }
-const menuIn = (event) => {
-   //console.log('menu in')
-   $('#mySidenav').css('width','300px');
-}
-const menuOut = (event) => {
-   //console.log('menu Out');
-   $('#mySidenav').css('width','0px');
-}
+
 
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
@@ -139,9 +133,9 @@ const vertToggle = () => {
    }
 }
 const killBoatPlaceClicks = () => {
-   let $heroSqEmpty = $(`.heroSq`).not(`.bb`)
+   let $heroSqEmpty = $(`.heroSq`)//.not(`.bb`)
    for (let i = 0; i < $heroSqEmpty.length; i++) {
-      $($heroSqEmpty).eq(i).off();
+      $($heroSqEmpty).eq(i).off().css('cursor','default');
    }
 }
 const userShot = (event) => {
@@ -165,16 +159,24 @@ const userShot = (event) => {
       return gamePlay();
    }
 }
+const menuIn = (event) => {
+   //console.log('menu in')
+   $('#mySidenav').css('width','300px');
+}
+const menuOut = (event) => {
+   //console.log('menu Out');
+   $('#mySidenav').css('width','0px');
+}
 const showNav = (event) => {
    //console.log('showNav firing');
    let navItem = $(event.currentTarget).children();
-   navItem.show()
+   navItem.show(`slow`)
    $(event.currentTarget).off()
    $(event.currentTarget).on('click',unShowNav)
 }
 const unShowNav = (event) => {
    let navItem = $(event.currentTarget).children();
-   navItem.hide()
+   navItem.hide('slow')
    $(event.currentTarget).off()
    $(event.currentTarget).on('click',showNav)
 }
@@ -522,7 +524,7 @@ const computerShot = () => {
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss`)
    }
    userTurn = !userTurn
-   $('.enemySq').css('cursor','pointer')
+   $('.enemySq').not('.hit, .miss').css('cursor','pointer')
    // $(`.enemy`).css(`border`,`2px solid yellow`)
    // $(`.hero`).css(`border`,`2px solid transparent`)
    checkGameOver();
@@ -621,9 +623,9 @@ const landing = () => {
    $('.menuImg').on('click',menuIn)
    $('.closebtn').on('click',menuOut)
    $('.navDiv').on('click', showNav)
-   if (devMode) {
+   if (devMode ) {
       hideGo_n_start();
-   } else {
+   } else if (publish) {
       $('.goBtn').on('click',hideGo_n_start);
    }
 }
