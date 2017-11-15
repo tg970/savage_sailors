@@ -273,11 +273,11 @@ const renderMiss = (event) => {
 }
 const userMessageHit = () => {
    //console.log(`userMessageHit`);
-   $('.messageHero').text(`That's a HIT! $#*!`)
+   $('.messageHero').text(`that's a hit... `)
 }
 const userMessageMiss = () => {
    //console.log(`userMessageMiss`);
-   $('.messageHero').text(`Misssssed....`)
+   $('.messageHero').text(`Missed!`)
 }
 const renderUserShotHover = (event) => {
    $(event.currentTarget).addClass(`us`)
