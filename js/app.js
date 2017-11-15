@@ -1,6 +1,6 @@
 //console.log($);
 const devMode = false
-const publish = true
+const publish = false
 
 // === GLOBAL VARIABLES ===
 let userBoats = [];
