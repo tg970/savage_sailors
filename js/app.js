@@ -500,7 +500,7 @@ const genCompShotOpt = () => {
          compShotOpt.push([i, j])
       }
    }
-   //console.log(compShotOpt);
+   console.log(compShotOpt);
 }
 
 const computerShot = () => {
@@ -536,12 +536,27 @@ const checkHit = (row, col, otherBoats) => {
 
 const checkGameOver = () => {
    if ( userBoats.length == 0 ) {
+      console.log(`game over user`);
       $('.message').text(`Game over...  :(`);
+      showEnemyBoard();
       askReset();
    }
    if ( enemyBoats.length == 0 ) {
+      console.log(`game for enemy`);
       $('.message').text(`You Won!!!`);
+      showEnemyBoard();
       askReset();
+   }
+}
+
+const showEnemyBoard = () => {
+   let $enemySq = $(`.enemySq`).not(".hit, .miss")
+   for (let i = 0; i < $enemySq.length; i++) {
+      if ($($enemySq[i]).hasClass(`em`)) {
+         $($enemySq[i]).addClass(`bb`)
+      } else {
+         $($enemySq[i]).css(`background-color`,`transparent`)
+      }
    }
 }
 
@@ -557,7 +572,7 @@ const resetBoard = () => {
       $(`#${img}`).addClass(`notplaced`);
       $(`#${img}`).attr(`src`,`${imgAddress[img].reset}`)
       $(`#${img}`).css(`background`,``)
-   
+
    }
    $(`.message`).empty()
    $(`.hero`).empty()
