@@ -160,8 +160,8 @@ const userShot = (event) => {
          $('.messageEnemy').text(`That's a HIT!!!!`)
          shot.b.damage(enemyBoats)
          renderHit(event)
-         setTimeout(dropCoco1,500)
-         setTimeout(unDropCoco1,3200)
+         setTimeout(dropCoco1,750)
+         setTimeout(unDropCoco1,4000)
       } else {
          $('.messageEnemy').text(`Misssssed....`);
          renderMiss(event)
@@ -556,8 +556,8 @@ const computerShot = () => {
          first_go = false
       } else { userMessageHit() }
       shot.b.damage(userBoats)
-      setTimeout(dropCoco2,500)
-      setTimeout(unDropCoco2,3200)
+      setTimeout(dropCoco2,750)
+      setTimeout(unDropCoco2,4000)
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit us`)
    } else {
       if (first_go) {
