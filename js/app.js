@@ -315,6 +315,8 @@ const renderHit = (event) => {
 const renderMiss = (event) => {
    $(event.currentTarget).off();
    $(event.currentTarget).addClass(`miss`).css(`opacity`,`.25`)
+   $(event.currentTarget).addClass('sinkIn')
+
 }
 const renderUserShotHover = (event) => {
    $(event.currentTarget).addClass(`us`)
@@ -408,6 +410,7 @@ class HeroBoat extends Boat {
    }
    colorIn(event, row, col) {
       $(event).addClass('bb')
+      $(event).addClass('sinkIn')
       $(event).off()
       if (vertical) {
          this.colorInVert(row, col)
@@ -419,6 +422,7 @@ class HeroBoat extends Boat {
             //console.log(id);
             if ( id > col && cnt > 0 ) {
                $($div[i]).addClass('bb').off()
+               $($div[i]).addClass('sinkIn')
                cnt--
             }
          }
@@ -432,6 +436,7 @@ class HeroBoat extends Boat {
          //console.log(id);
          if ( tmpRow > row && cnt > 0 ) {
             $($col[i]).addClass('bb').off()
+            $($col[i]).addClass('sinkIn')
             cnt--
          }
       }

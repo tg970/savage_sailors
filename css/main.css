@@ -283,15 +283,24 @@ body {
    animation-duration: .75s;
    animation-iteration-count: 1;
 }
+.sinkIn {
+   animation-name: sinkIn;
+   animation-duration: .75s;
+   animation-iteration-count: 1;
+}
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
 .hit {
    background-color: red;
    opacity: .90;
+   animation-name: shake;
+   animation-duration: 1s;
+   animation-iteration-count: 1;
 }
 .miss {
    background-color: yellow;
    opacity: .25;
 }
+
 
 /* ===================== BOTTOM INFO SECTION ========================== */
 .info {
@@ -507,5 +516,19 @@ body {
 @keyframes squareIn {
    0% {transform: translate(0px, 0px);}
    50% {transform: translate(0px, -25px);}
+   100% {transform: translate(0px, 0px);}
+}
+
+@keyframes sinkIn {
+   0% {transform: scale(1);}
+   50% {transform: scale(.85);}
+   100% {transform: scale(1);}
+}
+@keyframes shake {
+   0% {transform: translate(0px, 0px);}
+   20% {transform: translate(-20px, 20px);}
+   40% {transform: translate(15px, -15px);}
+   60% {transform: translate(-10px, -10px);}
+   80% {transform: translate(5px, 5px);}
    100% {transform: translate(0px, 0px);}
 }
