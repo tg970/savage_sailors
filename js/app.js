@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = true
+const devMode = false
 const publish = true
 
 // === GLOBAL VARIABLES ===
@@ -101,17 +101,36 @@ const removeHidden = () => {
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
+   $('.board').removeClass('hide')
    $(`.goWrapper`).addClass(`hide`);
    $('#setUp').clone().addClass('welcomeSub').appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
-   //console.log($setup);
-   //$('.welcome').append($setup)
-   $('.board').removeClass('hide')
    $('.welcome').show('slow')
+   $('.welcome').on(`click`,slide2)
    //$(`.boatsHeader`).text(`Boats`);
-   //$(`.board`).removeClass(`hide`);
    //$('#navResetBtn').on('click',resetBoard)
    //startGame();
+}
+const slide2 = () => {
+   $(`.welcome`).hide('slow')
+   $(`.welcome`).off()
+   $(`.welcome`).empty()
+   $(`#howTo`).clone().addClass('welcomeSub').appendTo('.welcome')
+   $('.welcomeSub').children().show('fast')
+   $('.welcome').show('slow')
+   $('.welcome').on(`click`,slide3)
+
+}
+const slide3 = () => {
+   $(`.welcome`).hide('fast')
+   $(`.welcome`).off()
+   // $(`.welcome`).empty()
+   // $(`#howTo`).clone().addClass('welcomeSub').appendTo('.welcome')
+   // $('.welcomeSub').children().show('fast')
+   // $('.welcome').show('slow')
+   $(`.boatsHeader`).text(`Boats`);
+   $('#navResetBtn').on('click',resetBoard)
+   setTimeout(startGame, 500);
 }
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]
@@ -669,6 +688,7 @@ const gamePlay = () => {
 }
 
 const startGame = () => {
+   $('.enemy, .hero').removeClass('hide')
    $('.messageHero').text("Place your Boats!")
    //$('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);

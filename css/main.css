@@ -91,6 +91,7 @@ body {
     transition: 0.5s;
     padding-top: 60px;
     text-overflow: clip;
+    z-index: 2;
 }
 .navDiv {
     padding: 8px 8px 8px 32px;
@@ -211,10 +212,11 @@ body {
 /*=========== Welcome Screen ============*/
 .welcome {
    background-color: #fff;
-   opacity: .75;
+   opacity: .95;
    height: 100%;
    width: 450px;
    display: none;
+   border-radius: 10px;
 }
 
 
