@@ -20,7 +20,7 @@ Now, you’re not just some broke joke of a sailor! You sail with a small armada
 
 ![](./img/cat.png)
 
-![](./img/fish.png)
+![](./img/fishing.png)
 
 ![](./img/tender.png)
 
@@ -42,7 +42,7 @@ Keep track of the health of the ships in the Boats and Enemy Boats section. Enem
 ![](./img/cat_damg_3.png)
 
 **Center Console**
-![](./img/fish_damg_2.png)
+![](./img/fishing_damg_2.png)
 
 **Dingy**
 ![](./img/tender_damg_1.png)
@@ -50,10 +50,13 @@ Keep track of the health of the ships in the Boats and Enemy Boats section. Enem
 ## enemyBoats
 
 **Trawler**
+
 ![](./img/emTrawler_sunk.png)
 
 **Ol Busted Steamer**
+
 ![](./img/olbusted_sunk.png)
 
 **Skiff**
+
 ![](./img/skiff_sunk.png)
