@@ -466,7 +466,6 @@ body {
 .hide {
    display: none;
 }
-
 #coco1 {
    display: inline-block;
    transform: scale(.55) translate(270px, -100px);
@@ -477,7 +476,6 @@ body {
    animation-duration: 3s;
    animation-iteration-count: 1;
 }
-
 #coco2 {
    display: inline-block;
    transform: scale(.55) translate(-270px, -100px);
@@ -488,7 +486,6 @@ body {
    animation-duration: 3s;
    animation-iteration-count: 1;
 }
-
 @keyframes drop-coconut1 {
   0% {transform: scale(.55) translate(270px, -100px);}
   12% {transform: scale(.65) translate(270px, 165px)}
@@ -500,7 +497,6 @@ body {
   33% {transform: scale(.65) translate(270px, 165px)}
   100% {transform: scale(.65) translate(270px, 165px)}
 }
-
 @keyframes drop-coconut2 {
   0% {transform: scale(.55) translate(-270px, -100px);}
   12% {transform: scale(.65) translate(-270px, 165px)}
@@ -512,13 +508,11 @@ body {
   33% {transform: scale(.65) translate(-270px, 165px)}
   100% {transform: scale(.65) translate(-270px, 165px)}
 }
-
 @keyframes squareIn {
    0% {transform: translate(0px, 0px);}
    50% {transform: translate(0px, -25px);}
    100% {transform: translate(0px, 0px);}
 }
-
 @keyframes sinkIn {
    0% {transform: scale(1);}
    50% {transform: scale(.85);}
