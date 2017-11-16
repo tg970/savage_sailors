@@ -293,7 +293,7 @@ body {
    background-color: red;
    opacity: .90;
    animation-name: shake;
-   animation-duration: 1s;
+   animation-duration: .5s;
    animation-iteration-count: 1;
 }
 .miss {
@@ -525,10 +525,15 @@ body {
    100% {transform: scale(1);}
 }
 @keyframes shake {
-   0% {transform: translate(0px, 0px);}
-   20% {transform: translate(-20px, 20px);}
-   40% {transform: translate(15px, -15px);}
-   60% {transform: translate(-10px, -10px);}
-   80% {transform: translate(5px, 5px);}
-   100% {transform: translate(0px, 0px);}
+   0% {transform: translate(0px, 0px); z-index: 1;}
+   10% {transform: translate(-20px, -20px);z-index: 1;}
+   20% {transform: translate(-15px, 15px);z-index: 1;}
+   30% {transform: translate(15px, 15px);z-index: 1;}
+   40% {transform: translate(15px, -15px);z-index: 1;}
+   50% {transform: translate(-10px, -10px);z-index: 1;}
+   60% {transform: translate(-10px, 10px);z-index: 1;}
+   70% {transform: translate(5px, 5px);z-index: 1;}
+   80% {transform: translate(5px, -5px);z-index: 1;}
+   90% {transform: translate(0px, -5px);z-index: 1;}
+   100% {transform: translate(0px, 0px);z-index: 1;}
 }
