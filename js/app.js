@@ -287,10 +287,16 @@ const deRenderUserShotHover = (event) => {
    $(event.currentTarget).removeClass(`us`)
 }
 const dropCoco1 = () => {
-   $('#coco1').addClass('drop')
+   $('#coco1').addClass('drop1')
 }
 const unDropCoco1 = () => {
-   $('#coco1').removeClass('drop')
+   $('#coco1').removeClass('drop1')
+}
+const dropCoco2 = () => {
+   $('#coco2').addClass('drop2')
+}
+const unDropCoco2 = () => {
+   $('#coco2').removeClass('drop2')
 }
 
 // === LOGIC LAYER ===
@@ -550,6 +556,8 @@ const computerShot = () => {
          first_go = false
       } else { userMessageHit() }
       shot.b.damage(userBoats)
+      setTimeout(dropCoco2,500)
+      setTimeout(unDropCoco2,3200)
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit us`)
    } else {
       if (first_go) {
