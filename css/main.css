@@ -71,8 +71,12 @@ body {
       -4px -4px 10px #0B627C,
       4px -4px 10px #0B627C;
 }
-.messageSpacer {
-   width: 15%;
+.messageHero {
+   margin-left: 5px;
+}
+.messageEnemy {
+   margin-right: 5px;
+   margin-left: 10px;
 }
 .sidenav {
     height: 100%;
@@ -183,10 +187,12 @@ body {
    background-color: #1E6B34;
    opacity: .85;
    cursor: pointer;
-   color: #fff
+   color: #fff;
+   margin-left: 10px;
 }
 .reset {
    width: 80px;
+   margin-right: 10px;
 }
 .resetBtn {
    width: 80px;
@@ -210,6 +216,12 @@ body {
    flex-direction: column;
    align-items: center;
    justify-content: center;
+}
+.hero {
+   margin-left: 5px
+}
+.enemy {
+   margin-right: 5px
 }
 .heroRow, .enemyRow {
    display: flex;

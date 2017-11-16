@@ -620,7 +620,8 @@ const resetBoard = () => {
       $(`#${img}`).css(`background`,``)
 
    }
-   $(`.message`).empty()
+   $(`.messageHero`).empty().css(`opacity`,`1`)
+   $(`.messageEnemy`).empty().css(`opacity`,`1`)
    $(`.hero`).empty()
    $(`.enemy`).empty()
    // $('.vert').addClass(`hide`)
@@ -639,7 +640,7 @@ const gamePlay = () => {
    //console.log('Game Play:', userBoats, enemyBoats);
    if ( userBoats.length > 0 && enemyBoats.length > 0 ) {
       if (devMode) {computerShot()}
-      else {setTimeout(computerShot, 1000)};
+      else {setTimeout(computerShot, 2000)};
    }
    checkGameOver();
    //console.log('userTurn now', userTurn);
