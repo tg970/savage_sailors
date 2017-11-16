@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 const publish = true
 
 // === GLOBAL VARIABLES ===
@@ -102,10 +102,16 @@ const removeHidden = () => {
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
    $(`.goWrapper`).addClass(`hide`);
-   $(`.boatsHeader`).text(`Boats`);
-   $(`.board`).removeClass(`hide`);
-   $('#navResetBtn').on('click',resetBoard)
-   startGame();
+   $('#setUp').clone().addClass('welcomeSub').appendTo('.welcome')
+   $('.welcomeSub').children().show('fast')
+   //console.log($setup);
+   //$('.welcome').append($setup)
+   $('.board').removeClass('hide')
+   $('.welcome').show('slow')
+   //$(`.boatsHeader`).text(`Boats`);
+   //$(`.board`).removeClass(`hide`);
+   //$('#navResetBtn').on('click',resetBoard)
+   //startGame();
 }
 const boatPlacement = (event) => {
    let newBoatLength = availBoats[0][1]

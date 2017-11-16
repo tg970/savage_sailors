@@ -119,7 +119,7 @@ body {
 .navSub {
    display: none;
 }
-.navSub p {
+.navSub > p {
    font-size: 15px;
    font-family: 'Lato', sans-serif;
    color: #00506C;
@@ -207,6 +207,16 @@ body {
    opacity: .85;
    cursor: pointer;
 }
+
+/*=========== Welcome Screen ============*/
+.welcome {
+   background-color: #fff;
+   opacity: .75;
+   height: 100%;
+   width: 450px;
+   display: none;
+}
+
 
 /* ======================= SQUARES SECTION ===================== */
 .hero, .enemy {
@@ -438,13 +448,7 @@ body {
 .hide {
    display: none;
 }
-/*.coconut {
 
-  width: 20px;
-  height: 20px;
-  background-color: #643311;
-  border-radius: 50%;
-}*/
 #coco1 {
    display: inline-block;
    transform: scale(.55) translate(270px, -100px);
