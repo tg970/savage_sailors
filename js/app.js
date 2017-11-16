@@ -7,8 +7,12 @@ let userBoats = [];
 let enemyBoats = [];
 let size = 5;
 let boardHeightPx = 400
-let availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Tender', 1, `dingy`]];
-let availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Steamer', 2, `toon`],['Skiff', 1, `skif`]];
+let availBoats = [['Your Catamaran',3,`cat`],
+   ['The Fishing Boat',2,`fish`],
+   ['Tender', 1, `dingy`]];
+let availEnemy = [['Enemy Trawler', 3,`traw`],
+   ['Ol Busted Steamer', 2, `toon`],
+   ['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
 let vertical = true;

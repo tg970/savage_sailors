@@ -16,7 +16,7 @@ body {
    justify-content: center;
 }
 
-/* ================== NAV & MESSAGE SECTION ELEMENTS =========== */
+/* = = = = = = = NAV & MESSAGE SECTION ELEMENTS  = = = = =  */
 .navi {
    display: flex;
    flex-direction: row;
@@ -127,7 +127,7 @@ body {
    white-space:normal;
 }
 
-/* ======================== BOARD SECTION ======================= */
+/* = = = = = = = BOARD SECTION = = = = = = = */
 .container {
    display: flex;
    justify-content: space-around;
@@ -209,7 +209,7 @@ body {
    cursor: pointer;
 }
 
-/*=========== Welcome Screen ============*/
+/* = = = = = = =Welcome Screen = = = = = = = */
 .welcome {
    background-color: #fff;
    opacity: .95;
@@ -233,7 +233,7 @@ body {
    text-align: right;
 }
 
-/* ======================= SQUARES SECTION ===================== */
+/* = = = = = = = SQUARES SECTION = = = = = = = */
 .hero, .enemy {
    height: 400px;
    width: 400px;
@@ -301,7 +301,7 @@ body {
    animation-duration: .75s;
    animation-iteration-count: 1;
 }
-/* ==================== GAME BOARD ANAIMATIONS ======================= */
+/* = = = = = = = GAME BOARD ANAIMATIONS = = = = = = = */
 .hit {
    background-color: red;
    opacity: .90;
@@ -315,7 +315,7 @@ body {
 }
 
 
-/* ===================== BOTTOM INFO SECTION ========================== */
+/* = = = = = = = BOTTOM INFO SECTION = = = = = = = */
 .info {
    height: 250px;
    display: flex;
@@ -355,7 +355,7 @@ body {
    padding-top: 5px;
 }
 
-/* =================== BOTTOM INFO SUB SECTIONS ====================== */
+/* = = = = = = = BOTTOM INFO SUB SECTIONS = = = = = = = */
 .infoWrapper {
    width: 95%;
    height: 200px;
