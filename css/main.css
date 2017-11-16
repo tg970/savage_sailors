@@ -469,24 +469,24 @@ body {
 
 @keyframes drop-coconut1 {
   0% {transform: scale(.55) translate(270px, -100px);}
-  12% {transform: scale(.55) translate(270px, 165px)}
-  18% {transform: scale(.55) translate(270px, 140px)}
-  24% {transform: scale(.55) translate(270px, 165px)}
-  27% {transform: scale(.55) translate(270px, 153px)}
-  30% {transform: scale(.55) translate(270px, 165px)}
-  32% {transform: scale(.55) translate(270px, 160px)}
-  33% {transform: scale(.55) translate(270px, 165px)}
-  100% {transform: scale(.55) translate(270px, 165px)}
+  12% {transform: scale(.65) translate(270px, 165px)}
+  18% {transform: scale(.75) translate(270px, 140px)}
+  24% {transform: scale(.85) translate(270px, 165px)}
+  27% {transform: scale(.95) translate(270px, 153px)}
+  30% {transform: scale(1) translate(270px, 165px)}
+  32% {transform: scale(1) translate(270px, 160px)}
+  33% {transform: scale(1) translate(270px, 165px)}
+  100% {transform: scale(1) translate(270px, 165px)}
 }
 
 @keyframes drop-coconut2 {
   0% {transform: scale(.55) translate(-270px, -100px);}
-  12% {transform: scale(.55) translate(-270px, 165px)}
-  18% {transform: scale(.55) translate(-270px, 140px)}
-  24% {transform: scale(.55) translate(-270px, 165px)}
-  27% {transform: scale(.55) translate(-270px, 153px)}
-  30% {transform: scale(.55) translate(-270px, 165px)}
-  32% {transform: scale(.55) translate(-270px, 160px)}
-  33% {transform: scale(.55) translate(-270px, 165px)}
-  100% {transform: scale(.55) translate(-270px, 165px)}
+  12% {transform: scale(.65) translate(-270px, 165px)}
+  18% {transform: scale(.75) translate(-270px, 140px)}
+  24% {transform: scale(.85) translate(-270px, 165px)}
+  27% {transform: scale(.95) translate(-270px, 153px)}
+  30% {transform: scale(1) translate(-270px, 165px)}
+  32% {transform: scale(1) translate(-270px, 160px)}
+  33% {transform: scale(1) translate(-270px, 165px)}
+  100% {transform: scale(1) translate(-270px, 165px)}
 }
