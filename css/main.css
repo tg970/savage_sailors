@@ -185,7 +185,7 @@ body {
    font-family: 'Lato', sans-serif;
    border: 1px solid silver;
    border-radius: 15px;
-   background-color: #1E6B34;
+   background-color: #00516C;
    opacity: .85;
    cursor: pointer;
    color: #fff;
@@ -257,9 +257,11 @@ body {
    /*animation-delay: 2000ms;*/
    /*display: none;*/
    cursor: pointer;
+   transform: translate(0px, 0px);
+   overflow: visible;
 }
 .hidden {
-   display: none;
+   /*display: none;*/
 }
 .enemySq {
    background-color: #FEFEFE;
@@ -275,7 +277,12 @@ body {
    border-radius: 25%;
    /*background-color: */
 }
-
+.jump {
+   display: inline-block;
+   animation-name: squareIn;
+   animation-duration: 1s;
+   animation-iteration-count: 1;
+}
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
 .hit {
    background-color: red;
@@ -495,4 +502,10 @@ body {
   32% {transform: scale(.65) translate(-270px, 160px)}
   33% {transform: scale(.65) translate(-270px, 165px)}
   100% {transform: scale(.65) translate(-270px, 165px)}
+}
+
+@keyframes squareIn {
+   0% {transform: translate(0px, 0px);}
+   50% {transform: translate(0px, -25px);}
+   100% {transform: translate(0px, 0px);}
 }

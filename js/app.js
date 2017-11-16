@@ -75,6 +75,8 @@ const buildBoard = (user, size, func) => {
       };
    $(`.${user}`).append($container)
    }
+   $(`.hidden`).show('slow')
+   //setTimeout(removeHidden, 250)
    if (user == `hero`) {
       //$(`.vert`).removeClass(`hide`)
       $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
@@ -95,7 +97,16 @@ const getDelay = (i, j) => {
    return ((i * 250) + ((j+1) * 50))
 }
 const removeHidden = () => {
-   $(`.hidden`).eq(0).removeClass(`hidden`);
+   $('.hidden').eq(0).addClass('jump')
+   $('.hidden').eq(0).removeClass('hidden')
+}
+//    $(`.hidden`).show('slow')//.eq(0).removeClass(`hidden`);
+//    setTimeout(jump, 100)
+// }
+const jump = () => {
+   console.log('jump');
+   $('.hidden').eq(0).addClass('jump')
+   $('.hidden').eq(0).removeClass('hidden')
 }
 
 // === CLICK HANDERLERS ===
@@ -162,9 +173,9 @@ const boatPlacement = (event) => {
 const vertToggle = () => {
    vertical = !vertical
    if (vertical) {
-      $('.vertBtn').css(`background-color`,'#1D733A')
-   } else {
       $('.vertBtn').css(`background-color`,'#00516C')
+   } else {
+      $('.vertBtn').css(`background-color`,'#1D733A')
    }
 }
 const killBoatPlaceClicks = () => {
