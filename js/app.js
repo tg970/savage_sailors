@@ -92,7 +92,7 @@ const buildBoard = (user, size, func) => {
    //$(`.messageContainer`)
 }
 const getDelay = (i, j) => {
-   return ((i * 400) + ((j+1) * 100))
+   return ((i * 250) + ((j+1) * 50))
 }
 const removeHidden = () => {
    $(`.hidden`).eq(0).removeClass(`hidden`);
@@ -160,6 +160,8 @@ const userShot = (event) => {
          $('.messageEnemy').text(`That's a HIT!!!!`)
          shot.b.damage(enemyBoats)
          renderHit(event)
+         setTimeout(dropCoco1,500)
+         setTimeout(unDropCoco1,3200)
       } else {
          $('.messageEnemy').text(`Misssssed....`);
          renderMiss(event)
@@ -283,6 +285,12 @@ const renderUserShotHover = (event) => {
 }
 const deRenderUserShotHover = (event) => {
    $(event.currentTarget).removeClass(`us`)
+}
+const dropCoco1 = () => {
+   $('#coco1').addClass('drop')
+}
+const unDropCoco1 = () => {
+   $('#coco1').removeClass('drop')
 }
 
 // === LOGIC LAYER ===
