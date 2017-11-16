@@ -218,7 +218,20 @@ body {
    display: none;
    border-radius: 10px;
 }
-
+.skipButton {
+   margin-left: 275px;
+   height: 25px;
+   width: 150px;
+   border-radius: 3px;
+   transform: translate(0px, -15px);
+}
+.click {
+   font-size: 15px;
+   font-family: 'Lato', sans-serif;
+   color: #00506C;
+   white-space:normal;
+   text-align: right;
+}
 
 /* ======================= SQUARES SECTION ===================== */
 .hero, .enemy {

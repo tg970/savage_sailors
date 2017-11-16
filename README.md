@@ -47,6 +47,9 @@ Keep track of the health of the ships in the Boats and Enemy Boats section. Enem
 **Dingy**
 ![](./img/tender_damg_1.png)
 
+
+<hr>
+
 ## enemyBoats
 
 **Trawler**

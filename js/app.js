@@ -100,9 +100,6 @@ const removeHidden = () => {
    $('.hidden').eq(0).addClass('jump')
    $('.hidden').eq(0).removeClass('hidden')
 }
-//    $(`.hidden`).show('slow')//.eq(0).removeClass(`hidden`);
-//    setTimeout(jump, 100)
-// }
 const jump = () => {
    console.log('jump');
    $('.hidden').eq(0).addClass('jump')
@@ -112,12 +109,19 @@ const jump = () => {
 // === CLICK HANDERLERS ===
 const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
-   $('.board').removeClass('hide')
    $(`.goWrapper`).addClass(`hide`);
-   $('#setUp').clone().addClass('welcomeSub').appendTo('.welcome')
+   $('.board').removeClass('hide')
+   if (devMode) {
+      return slide3();
+   }
+   $('.board').removeClass('hide')
+   let $newSetup = $('#setUp').clone().addClass('welcomeSub')//.appendTo('.welcome')
+   $('<p>').text('( click anywhere to continue )').addClass('click').appendTo($newSetup)
+   $newSetup.appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
    $('.welcome').show('slow')
    $('.welcome').on(`click`,slide2)
+   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
    //$(`.boatsHeader`).text(`Boats`);
    //$('#navResetBtn').on('click',resetBoard)
    //startGame();
@@ -126,11 +130,13 @@ const slide2 = () => {
    $(`.welcome`).hide('slow')
    $(`.welcome`).off()
    $(`.welcome`).empty()
-   $(`#howTo`).clone().addClass('welcomeSub').appendTo('.welcome')
+   let $newHowTo = $(`#howTo`).clone().addClass('welcomeSub')
+   $('<p>').text('( click anywhere to continue )').addClass('click').appendTo($newHowTo)
+   $newHowTo.appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
    $('.welcome').show('slow')
    $('.welcome').on(`click`,slide3)
-
+   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
 }
 const slide3 = () => {
    $(`.welcome`).hide('fast')
