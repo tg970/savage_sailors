@@ -111,11 +111,9 @@ const hideGo_n_start = (event) => {
    console.log(`hide go and start!`);
    $(`.goWrapper`).addClass(`hide`);
    $('.board').removeClass('hide')
-   if (devMode) {
-      return slide3();
-   }
+   if (devMode) { return slide3(); }
    $('.board').removeClass('hide')
-   let $newSetup = $('#setUp').clone().addClass('welcomeSub')//.appendTo('.welcome')
+   let $newSetup = $('#setUp').clone().addClass('welcomeSub')
    $('<p>').text('( click anywhere to continue )').addClass('click').appendTo($newSetup)
    $newSetup.appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
