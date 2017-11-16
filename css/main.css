@@ -280,7 +280,7 @@ body {
 .jump {
    display: inline-block;
    animation-name: squareIn;
-   animation-duration: 1s;
+   animation-duration: .75s;
    animation-iteration-count: 1;
 }
 /* ==================== GAME BOARD ANAIMATIONS ======================= */
