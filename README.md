@@ -2,9 +2,9 @@
 
 <hr>
 
-##Compliments of Tyler Goodman
+## Compliments of Tyler Goodman
 
-###WDIR Project 1
+### WDIR Project 1
 
 <hr>
 
