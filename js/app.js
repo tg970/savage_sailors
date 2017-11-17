@@ -18,6 +18,7 @@ let compShotOpt = [];
 let vertical = true;
 let enemySqSB = 6;
 let first_go = true;
+let last_go = true
 const imgAddress = {
    'cat': {
       1:`./img/cat_damg_1.png`,
@@ -82,7 +83,7 @@ const buildBoard = (user, size, func) => {
    $(`.hidden`).show('slow')
    //setTimeout(removeHidden, 250)
    if (user == `hero`) {
-      //$(`.vert`).removeClass(`hide`)
+      $(`.vert`).removeClass(`hide`)
       $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
       //$('.reset').removeClass(`hide`)
       if (devMode) {
@@ -91,7 +92,7 @@ const buildBoard = (user, size, func) => {
    } else if (!devMode) {
       // $('.heroSq').css('cursor','not-allowed')
       //$(`.vert`).addClass(`hide`)
-      $('.vertBtn').addClass(`hide`).off()
+      $('.vertBtn').addClass(`hide`)
       //$('.reset').addClass(`hide`)
       $(`.enemySq`).css(`opacity`,`1`)
    }
@@ -116,14 +117,13 @@ const hideGo_n_start = (event) => {
    $(`.goWrapper`).addClass(`hide`);
    $('.board').removeClass('hide')
    if (devMode) { return slide3(); }
-   $('.board').removeClass('hide')
    let $newSetup = $('#setUp').clone().addClass('welcomeSub')
    $('<p>').text('( click anywhere to continue )').addClass('click').appendTo($newSetup)
    $newSetup.appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
+   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
    $('.welcome').show('slow')
    $('.welcome').on(`click`,slide2)
-   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
    //$(`.boatsHeader`).text(`Boats`);
    //$('#navResetBtn').on('click',resetBoard)
    //startGame();
@@ -136,9 +136,9 @@ const slide2 = () => {
    $('<p>').text('( click anywhere to continue )').addClass('click').appendTo($newHowTo)
    $newHowTo.appendTo('.welcome')
    $('.welcomeSub').children().show('fast')
+   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
    $('.welcome').show('slow')
    $('.welcome').on(`click`,slide3)
-   $('<button>').text('skip').addClass('skipButton').on('click',slide3).appendTo('.welcome')
 }
 const slide3 = () => {
    $(`.welcome`).hide('fast')
@@ -179,12 +179,12 @@ const boatPlacement = (event) => {
    }
 } //returns gamePlay
 const vertToggle = () => {
-   vertical = !vertical
    if (vertical) {
       $('.vertBtn').css(`background-color`,'#00516C')
    } else {
       $('.vertBtn').css(`background-color`,'#1D733A')
    }
+   vertical = !vertical
 }
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`)//.not(`.bb`)
@@ -214,6 +214,7 @@ const userShot = (event) => {
       $('.enemySq').css('cursor','not-allowed')
       // $(`.hero`).css(`border`,`2px solid yellow`)
       // $(`.enemy`).css(`border`,`2px solid transparent`)
+      checkGameOver();
       return gamePlay();
    }
 }
@@ -648,13 +649,22 @@ const userMessageMiss = () => {
 const checkGameOver = () => {
    if ( userBoats.length == 0 ) {
       console.log(`game over user`);
-      $('.messageHero').text(`Game over...  :(`).css(`opacity`,`1.0`);
-      showEnemyBoard();
-      askReset();
+      if (!last_go) {
+         $('.messageHero').text(`Game over...  :(`).css(`opacity`,`1.0`).removeClass(`lastGo`);
+         showEnemyBoard();
+         askReset();
+      } else {
+         $('.messageEnemy').text(`One Last Shot`).addClass(`lastGo`).css(`opacity`,`1.0`)
+         last_go = false
+      }
    }
    if ( enemyBoats.length == 0 ) {
       console.log(`game for enemy`);
-      $('.messageEnemy').text(`You Won!!!`);
+      if (!last_go) {
+         $('.messageHero').text(`You Won!!!`).addClass(`lastGo`);
+      } else {
+         $('.messageEnemy').text(`You Won!!!`);
+      }
       showEnemyBoard();
       askReset();
    }
@@ -685,19 +695,22 @@ const resetBoard = () => {
       $(`#${img}`).css(`background`,``)
 
    }
-   $(`.messageHero`).empty().css(`opacity`,`1`)
-   $(`.messageEnemy`).empty().css(`opacity`,`1`)
+   $(`.messageHero`).empty().css(`opacity`,`1`).removeClass(`lastGo`)
+   $(`.messageEnemy`).empty().css(`opacity`,`1`).removeClass(`lastGo`)
    $(`.hero`).empty()
    $(`.enemy`).empty()
    // $('.vert').addClass(`hide`)
    // $('.reset').addClass(`hide`)
    $('.resetBtn').addClass(`hide`)
+   $('.vertBtn').css(`background-color`,'#00516C')
    userBoats = [];
    enemyBoats = [];
    availBoats = [['Your Catamaran',3,`cat`],['The Fishing Boat',2,`fish`],['Tender', 1, `dingy`]];
    availEnemy = [['Enemy Trawler', 3,`traw`],['Ol Busted Pontoon', 2, `toon`],['Skiff', 1, `skif`]];
    userTurn = false;
    compShotOpt = [];
+   vertical = true;
+   last_go = true;
    return startGame();
 }
 
@@ -707,7 +720,7 @@ const gamePlay = () => {
       if (devMode) {computerShot()}
       else {setTimeout(computerShot, 2000)};
    }
-   checkGameOver();
+   //checkGameOver();
    //console.log('userTurn now', userTurn);
 }
 

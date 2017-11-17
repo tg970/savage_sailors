@@ -78,6 +78,14 @@ body {
    margin-right: 5px;
    margin-left: 10px;
 }
+.lastGo {
+   text-shadow:
+      -1px 1px 5px red,
+      -4px 4px 10px red,
+      4px 4px 10px red,
+      -4px -4px 10px red,
+      4px -4px 10px red;
+}
 .sidenav {
     height: 100%;
     width: 0;
