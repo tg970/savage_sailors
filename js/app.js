@@ -84,7 +84,7 @@ const buildBoard = (user, size, func) => {
    //setTimeout(removeHidden, 250)
    if (user == `hero`) {
       $(`.vert`).removeClass(`hide`)
-      $('.vertBtn').removeClass(`hide`).on('click',vertToggle)
+      $('.vertBtn').removeClass(`hide`).css(`backgound-color`,`#00516C`)
       //$('.reset').removeClass(`hide`)
       if (devMode) {
          $('.resetBtn').removeClass(`hide`)
@@ -179,12 +179,12 @@ const boatPlacement = (event) => {
    }
 } //returns gamePlay
 const vertToggle = () => {
+   vertical = !vertical
    if (vertical) {
       $('.vertBtn').css(`background-color`,'#00516C')
    } else {
       $('.vertBtn').css(`background-color`,'#1D733A')
    }
-   vertical = !vertical
 }
 const killBoatPlaceClicks = () => {
    let $heroSqEmpty = $(`.heroSq`)//.not(`.bb`)
@@ -729,6 +729,7 @@ const startGame = () => {
    $('.messageHero').text("Place your Boats!")
    //$('.messageContainer').addClass(`start`)
    buildBoard(`hero`, size, boatPlacement);
+
    if (devMode) {
       buildBoard(`enemy`, size, userShot);
       $('.resetBtn').on('click',resetBoard)
@@ -741,6 +742,7 @@ const landing = () => {
    $('.menuImg').on('click',menuIn)
    $('.closebtn').on('click',menuOut)
    $('.navDiv').on('click', showNav)
+   $('.vertBtn').on('click',vertToggle)
    if (devMode ) {
       hideGo_n_start();
    } else if (publish) {
