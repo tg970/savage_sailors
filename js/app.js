@@ -1,5 +1,5 @@
 //console.log($);
-const devMode = false
+const devMode = true
 const publish = true
 
 // === GLOBAL VARIABLES ===
@@ -15,6 +15,11 @@ let availEnemy = [['Enemy Trawler', 3,`traw`],
    ['Skiff', 1, `skif`]];
 let userTurn = false;
 let compShotOpt = [];
+let compShotHist = {
+   hitMiss: [],
+   location: [],
+   sunk: false
+};
 let vertical = true;
 let enemySqSB = 6;
 let first_go = true;
@@ -386,8 +391,11 @@ class Boat {
       $('.message').text(`${this.name} Sunk!`);
       //console.log(`${this.name} Sunk!`);
       //console.log(this);
+      if (this.userboat) {
+         compSunk = true
+      }
       opp.splice(opp.indexOf(this),1);
-      //console.log(opp);
+      console.log(opp);
    }
    renderDamage() {
       let imgId = this.imgId
@@ -593,9 +601,7 @@ const genCompShotOpt = () => {
 
 const computerShot = () => {
    //console.log('computer shooting');
-   let randIndex = Math.floor(Math.random()*compShotOpt.length)
-   let target = compShotOpt[randIndex]
-   compShotOpt.splice(randIndex, 1)
+   let target = compShotOption()
    //console.log(target);
    let shot = checkHit(target[0], target[1], userBoats);
    $('.messageEnemy').css(`opacity`,`.25`)
@@ -608,20 +614,60 @@ const computerShot = () => {
       shot.b.damage(userBoats)
       setTimeout(dropCoco2,750)
       setTimeout(unDropCoco2,4000)
+      compShotHist.hitMiss.unshift(true)
+      compShotHist.location.unshift(target)
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`hit us`)
    } else {
       if (first_go) {
          setTimeout(userMessageMiss, 1000)
          first_go = false
-      } else { userMessageMiss() };
+      } else {
+         userMessageMiss()
+      };
+      compShotHist.hitMiss.unshift(false)
+      compShotHist.location.unshift(target)
       $(`.heroSq`).filter(`.${target[0]}`).slice(target[1],target[1]+1).addClass(`miss us`)
    }
    userTurn = !userTurn
    $('.enemySq').not('.hit, .miss').css('cursor','pointer')
    // $(`.enemy`).css(`border`,`2px solid yellow`)
    // $(`.hero`).css(`border`,`2px solid transparent`)
-
+   console.log(compShotHist);
    checkGameOver();
+}
+
+const compShotOption = () => {
+   let lastShot = compShotHist.hitMiss[0]
+   let lastShotLocal = compShotHist.location[0]
+   let target = null
+   if (lastShot && !compShotHist.compSunk) {
+      testTarget = [lastShotLocal[0], lastShotLocal[1]+1]
+      for (let i = 0; i < compShotOpt.length; i++) {
+         let tester = compShotOpt[i]
+         if (tester[0] === testTarget[0] && tester[1] === testTarget[1]) {
+            compShotOpt.splice(i, 1)
+            console.log(compShotOpt);
+            return testTarget
+         }
+      }
+   }
+   if (compShotHist.hitMiss[1] && !compShotHist.compSunk) {
+      testTarget = [lastShotLocal[1], lastShotLocal[1]-1]
+      for (let i = 0; i < compShotOpt.length; i++) {
+         let tester = compShotOpt[i]
+         if (tester[0] === testTarget[0] && tester[1] === testTarget[1]) {
+            compShotOpt.splice(i, 1)
+            console.log(compShotOpt);
+            return testTarget
+         }
+      }
+   }
+   let shotIndex = Math.floor(Math.random()*compShotOpt.length)
+   target = compShotOpt[shotIndex]
+   compShotOpt.splice(shotIndex, 1)
+   console.log(compShotOpt);
+   compSunk = false
+   return target
 }
 
 const checkHit = (row, col, otherBoats) => {
