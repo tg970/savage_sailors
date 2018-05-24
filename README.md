@@ -1,5 +1,7 @@
 # savage_sailors
 
+play the game!  https://tg970.github.io/savage_sailors/
+
 <hr>
 
 ## Compliments of Tyler Goodman
