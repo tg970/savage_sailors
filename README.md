@@ -18,11 +18,11 @@ You’ve been sailing around the ocean for awhile now all peaches and smiles...w
 
 Now, you’re not just some broke joke of a sailor! You sail with a small armada of pleasure boats so you’re actually pretty well equipped to fend off their attack! You have a Catamaran, a center-console Fishing boat, and a Tender. Each boat can only take a certain amount of damage. If you’ve ever played a game that rhymes with cattle chip, you know how to play Savage Sailors!
 
-![](./img/cat.png)
-
+![](./img/place_your_boats.png)
+<!--
 ![](./img/fishing.png)
 
-![](./img/tender.png)
+![](./img/tender.png) -->
 
 <hr>
 
